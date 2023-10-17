@@ -1,5 +1,13 @@
 ## Todo at the very beginning
 	create database with the same properties as in settings.py
+		>> sudo -iu postgres
+		>> psql
+		#  CREATE USER django_crowd WITH PASSWORD 'abc123';
+		#  ALTER USER django_crowd CREATEDB Superuser;
+		#  exit
+		>> psql -U django_crowd -d template1;
+		#  CREATE DATABASE croundfunder;
+		
 	clone the repo
 
 
@@ -20,7 +28,7 @@
 		open conflicting files and choose with care!!!!
 	9 - push your changes!
 	10 - Always keep your commits short and descriptive
-	
+
 =================
 User: A new app 
 
@@ -86,6 +94,7 @@ App: Homepage should contains the following:
 	
 =================	
 App: Feedback
+
 	4 - Comment
 		- user
 		- project
@@ -101,10 +110,5 @@ App: Feedback
 		- project / comment
 		- reason
 		- status (seen / new / solved)
-
-
-
-
-
 
 
