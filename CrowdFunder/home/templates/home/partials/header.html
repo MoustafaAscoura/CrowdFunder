@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.086);">
+    <div class="container">
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact us</a>
+          </li>
+        </ul>
+        
+        <form class="ms-5 d-flex" action="/search" method="get">
+          {% csrf_token %}
+          <input class="form-control me-2" name="value" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <ul class="navbar-nav">
+          {% if user.id %}
+          <li class="nav-item d-flex align-items-center">
+            Welcome,<a class="nav-link" href="/accounts/profile/"> {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link m-0" href="{% url 'logout' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link m-0" href="{% url 'editprofile' pk=user.id %}">Edit Profile</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link m-0" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link m-0" href="{% url 'signup' %}">Signup</a>
+          </li>
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>

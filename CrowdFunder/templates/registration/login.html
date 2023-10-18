@@ -1,0 +1,19 @@
+
+
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="container my-5">
+    <form class="form w-50  mx-auto" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <div class="d-flex justify-content-between align-items-center">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <span>First time? <a href="{% url 'signup' %}">Signup</a></span>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+
