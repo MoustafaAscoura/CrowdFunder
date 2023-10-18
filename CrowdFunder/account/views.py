@@ -6,7 +6,13 @@ from django.urls import reverse_lazy,reverse
 from .forms import FullUserForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
+from django.contrib.auth.views import LoginView
 
+class Login(LoginView):
+    redirect_authenticated_user=True
+    def get_redirect_url(self):
+        return reverse('index')
+    
 class CreateAccount(generic.CreateView):
     model = User
     form_class = UserCreationForm
@@ -32,8 +38,7 @@ def ShowProfile(request):
 
 def Logout(request):
     logout(request)
-    return redirect('home')
-
+    return redirect('index')
 
 class DeleteAccount(generic.DeleteView):
     model = User

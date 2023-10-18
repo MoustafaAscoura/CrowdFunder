@@ -1,19 +1,79 @@
-
-
 {% extends 'home/base.html' %}
+{% load static %}
 {% block content %}
 
+
 <div class="container my-5">
-    <form class="form w-50  mx-auto" method="post" enctype="multipart/form-data">
+    <form id="login-form" class="w-50 mx-auto" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form}}
-        <div class="d-flex justify-content-between align-items-center">
-        <button type="submit" class="btn btn-primary">Login</button>
-        <span>First time? <a href="{% url 'signup' %}">Signup</a></span>
+
+        <div class="form-outline mb-4">
+            <label class="form-label" for="id_username">Username</label>
+            <input required type="text" id="form2Example1" class="form-control" name="username" id="id_username"/>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="id_password">Password</label>
+            <input required type="password" name="password" id="id_password" class="form-control" />
+        </div>
+
+        <!-- Submit button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block mb-4 w-50">Sign in</button>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col text-center">
+                <!-- Simple link -->
+                <a href="{% url 'password_reset' %}">Forgot password?</a>
+            </div>
+        </div>
+
+
+
+
+        <!-- Register buttons -->
+        <div class="text-center">
+            <p>Not a member? <a href="{% url 'signup' %}">Register</a></p>
+            <p>or sign up with:</p>
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-facebook"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-google"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-github"></i>
+            </button>
         </div>
     </form>
 </div>
 
+<script>
+    form = document.getElementById("login-form")
+    for (let i = 7; i > 0; i--) {
+        ele = form.children[i]
+        console.log(ele, ele.tagName)
+        if (['INPUT','LABEL'].includes(ele.tagName)){
+            ele.remove()
+        }
+    }
+    if (form.children[1].classList.contains("errorlist")){
+        err = form.children[1]
+        err.classList.add("text-danger")
+        err.remove()
+        form.children[2].insertAdjacentElement('afterEnd',err)
+    }
+
+</script>
+
 
 {% endblock %}
-
