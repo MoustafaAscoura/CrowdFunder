@@ -10,6 +10,7 @@
 		
 	clone the repo
 
+superuser is ascoura password=12345
 
 ## Todo everytime you want to work
 
@@ -32,20 +33,23 @@
 =================
 User: A new app 
 
-	Properties
-	- First name 
-	- Last name 
-	- Email 
-	- Password 
-	- Confirm password 
-	- Mobile phone [validated against Egyptian phone numbers] - Profile Picture 
-
+##	Properties
+##	- First name 
+##	- Last name 
+##	- Email 
+##	- Password 
+##	- Confirm password 
+##	- Mobile phone [validated against Egyptian phone numbers] 
+##	- Profile Picture
 
 	- Activation Email after registration 
-	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours. - Login 
+	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours. 
+	
+	- Login 
 	- The user should be able to login after activation using his email and password 
-	- Bonus: Allow users to login with facebook account 
-	- Forgot Password (Bonus) 
+
+	- Bonus: Allow users to login with facebook account
+	- Forgot Password (Bonus)
 	- The user should have an option to reset his password if he forgot it to receive a password reset link to his email
 	
 	
