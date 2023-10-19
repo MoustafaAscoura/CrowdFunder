@@ -1,21 +1,23 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from django.views import generic
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy,reverse
-from .forms import FullUserForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render,redirect
 from django.contrib.auth.views import LoginView
+from django.shortcuts import render,redirect,resolve_url
+from django.urls import reverse_lazy,reverse
+from django.views import generic
+
+from .models import User
+from .forms import FullUserForm,CreateUserForm
 
 class Login(LoginView):
     redirect_authenticated_user=True
-    def get_redirect_url(self):
+    def get_default_redirect_url(self):
+        if self.next_page:
+            return resolve_url(self.next_page)
         return reverse('index')
-    
+
 class CreateAccount(generic.CreateView):
     model = User
-    form_class = UserCreationForm
+    form_class = CreateUserForm
     success_url = reverse_lazy('profile')
     template_name='registration/signup.html'
     def form_valid(self, form):
