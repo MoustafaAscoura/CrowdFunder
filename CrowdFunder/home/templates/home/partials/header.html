@@ -22,7 +22,7 @@
         <ul class="navbar-nav">
           {% if user.id %}
           <li class="nav-item d-flex align-items-center">
-            Welcome,<a class="nav-link" href="/accounts/profile/"> {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}</a>
+            Welcome,<a class="nav-link" href="{% url 'profile' pk=user.id %}"> {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link m-0" href="{% url 'logout' %}">Logout</a>

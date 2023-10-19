@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+    
+    {% block content %}
+    <div class="global-container">
+        <div class="card login-form">
+        <div class="card-body">
+            <h3 class="card-title text-center">You have successfully registered as user </h3>
+            <div class="card-text text-center">
+                Please login 
+                <a class= "btn btn-primary" href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    {%endblock%}

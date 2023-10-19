@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from account.models import User
+
 # Create your models here.
 
 class Category(models.Model):

@@ -2,32 +2,54 @@
 {% load static %}
 {% block content %}
 
-
 <div class="container my-5">
-    <form id="signup-form" class="w-50 mx-auto" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="text-warning">
-            {{ form.non_field_errors }}
+    <form class="user-form w-50 mx-auto" method="post" enctype="multipart/form-data">
+        <h4>Sign up with:</h4>
+        <div class="brands d-flex justify-content-around w-50 mx-auto">
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-facebook"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-google"></i>
+            </button>
+
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-github"></i>
+            </button>
         </div>
+        <hr>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger p-3 mb-2" role="alert">
+            {{ form.non_field_errors }}
+            </div>
+        {%endif%}
+
         {% for field in form %}
           <div class="mb-3">
                 {{ field.label_tag }}
                 {{ field }}
                 {{ field.errors }}
-                <div class="form-text">{{ field.help_text }}</div>
+                {% if field.help_text %}
+                    <div class="alert alert-warning pb-1 pt-2 mb-2" role="alert">{{ field.help_text }}</div>
+                {%endif%}
             </div>
         {%endfor%}
+        
         <div class="text-center">
             <button type="submit" class="btn btn-primary btn-block mt-4 w-50">Sign up</button>
         </div>
+
+
+
+
     </form>
 </div>
-
-<script>
-[...document.querySelectorAll('#signup-form div.mb-3 label')].map(e => {e.className="form-label"});
-[...document.querySelectorAll('#signup-form div.mb-3 input')].map(e => {e.className="form-control"});
-[...document.querySelectorAll('#signup-form div.mb-3 ul.errorlist li')].map(e => {e.className="text-danger"})
-</script>
-
 
 {% endblock %}

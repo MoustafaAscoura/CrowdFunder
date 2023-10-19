@@ -19,6 +19,7 @@ superuser is ascoura password=12345
 
 	2 - run your virtual environment
 	3 - run pip install -r requirments.txt
+	3 - makemigrations and migrate
 	4 - make your changes
 	5 - run (pip freeze > requirments.txt) if you installed any new libraries
 	6 - stage and commit your changes
@@ -43,9 +44,7 @@ User: A new app
 ##	- Profile Picture
 
 	- Activation Email after registration 
-	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours. 
-	
-	- Login 
+	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours.
 	- The user should be able to login after activation using his email and password 
 
 	- Bonus: Allow users to login with facebook account
@@ -53,7 +52,7 @@ User: A new app
 	- The user should have an option to reset his password if he forgot it to receive a password reset link to his email
 	
 	
-	- User Profile, The user can view his profile which: 
+##	- User Profile, The user can view his profile which: 
 	- He can view his profile 
 	- He can view his projects 
 	- He can view his donations 

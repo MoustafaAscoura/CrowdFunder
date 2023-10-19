@@ -3,21 +3,24 @@
 {% block content %}
 
 
+
 <div class="container my-5">
-    <form id="login-form" class="w-50 mx-auto" method="post" enctype="multipart/form-data">
+    <form class="user-form w-50 mx-auto" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form}}
 
-        <div class="form-outline mb-4">
-            <label class="form-label" for="id_username">Username</label>
-            <input required type="text" id="form2Example1" class="form-control" name="username" id="id_username"/>
-        </div>
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger p-3 mb-2" role="alert">
+            {{ form.non_field_errors }}
+            </div>
+        {%endif%}
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="id_password">Password</label>
-            <input required type="password" name="password" id="id_password" class="form-control" />
-        </div>
+        {% for field in form %}
+          <div class="form-outline mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {%endfor%}
 
         <!-- Submit button -->
         <div class="text-center">
@@ -36,43 +39,25 @@
         <!-- Register buttons -->
         <div class="text-center">
             <p>Not a member? <a href="{% url 'signup' %}">Register</a></p>
-            <p>or sign up with:</p>
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-facebook"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-twitter"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-google"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-github"></i>
-            </button>
+            <div class="brands d-flex justify-content-around w-50 mx-auto">
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa-brands fa-facebook"></i>
+                </button>
+    
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa-brands fa-twitter"></i>
+                </button>
+    
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa-brands fa-google"></i>
+                </button>
+    
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa-brands fa-github"></i>
+                </button>
+            </div>
         </div>
     </form>
 </div>
-
-<script>
-    form = document.getElementById("login-form")
-    for (let i = 7; i > 0; i--) {
-        ele = form.children[i]
-        console.log(ele, ele.tagName)
-        if (['INPUT','LABEL'].includes(ele.tagName)){
-            ele.remove()
-        }
-    }
-    if (form.children[1].classList.contains("errorlist")){
-        err = form.children[1]
-        err.classList.add("text-danger")
-        err.remove()
-        form.children[2].insertAdjacentElement('afterEnd',err)
-    }
-
-</script>
-
 
 {% endblock %}
