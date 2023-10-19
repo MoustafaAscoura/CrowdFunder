@@ -43,9 +43,9 @@ User: A new app
 ##	- Mobile phone [validated against Egyptian phone numbers] 
 ##	- Profile Picture
 
-	- Activation Email after registration 
-	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours.
-	- The user should be able to login after activation using his email and password 
+##	- Activation Email after registration 
+##	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours.
+##	- The user should be able to login after activation using his email and password 
 
 	- Bonus: Allow users to login with facebook account
 	- Forgot Password (Bonus)
@@ -53,7 +53,7 @@ User: A new app
 	
 	
 ##	- User Profile, The user can view his profile which: 
-	- He can view his profile 
+##	- He can view his profile 
 	- He can view his projects 
 	- He can view his donations 
 	- He can edit all his data except for the email
