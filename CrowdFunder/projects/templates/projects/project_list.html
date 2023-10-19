@@ -1,0 +1,42 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<br>
+    <div class="container">
+        {% for project in projects %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title">{{ project.title }}</h2>
+                {% comment %} <p class="card-text">{{ project.details }}</p> {% endcomment %}
+                {% comment %} <p class="card-text">Project ID: {{ project.id }}</p> {% endcomment %}
+                <p class="card-text">Total Target: {{ project.total_target }}</p>
+                <p class="card-text">Start Time : {{ project.start_time }}</p>
+                <p class="card-text">End Time: {{ project.end_time }}</p>
+                {% comment %} <p class="card-text">Category: {{ project.category }}</p>
+                <p class="card-text">Created At: {{ project.created_at }}</p> {% endcomment %}
+                <p class="card-text">Project Owner: {{ project.user }}</p>
+                <!-- Display other project details as needed -->
+                <a class="btn bg-primary text-white" href="{% url 'project_detail' id=project.id %}">Show Details</a>
+
+                <form>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <select class="form-select" id="rating" name="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

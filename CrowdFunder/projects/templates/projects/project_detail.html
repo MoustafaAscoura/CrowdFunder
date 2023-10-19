@@ -1,0 +1,19 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ project.title }}</h2>
+            <p class="card-text">{{ project.details }}</p> 
+            <p class="card-text">Project ID: {{ project.id }}</p> 
+            <p class="card-text">Total Target: {{ project.total_target }}</p>
+            <p class="card-text">Start Time: {{ project.start_time }}</p>
+            <p class="card-text">End Time: {{ project.end_time }}</p>
+            <p class="card-text">Category: {{ project.category }}</p>
+            <p class="card-text">Created At: {{ project.created_at }}</p> 
+            <p class="card-text">Project Owner: {{ project.user }}</p>
+        </div>
+    </div>
+
+{% endblock %}
