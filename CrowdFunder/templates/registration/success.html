@@ -2,12 +2,14 @@
     
     {% block content %}
     <div class="global-container">
-        <div class="card login-form">
+        <div class="card my-5 login-form">
         <div class="card-body">
-            <h3 class="card-title text-center">You have successfully registered as user </h3>
+            <h3 class="card-title text-center mb-5">An account verification link has been sent to your email</h3>
             <div class="card-text text-center">
-                Please login 
-                <a class= "btn btn-primary" href="{% url 'login' %}">Login</a>
+                Please Check your email for verification link and sign in again
+                <div class="d-flex justify-content-center my-5">
+                    <a class="btn btn-primary w-25" href="{% url 'login' %}">Login</a>
+                </div>
             </div>
         </div>
     </div>

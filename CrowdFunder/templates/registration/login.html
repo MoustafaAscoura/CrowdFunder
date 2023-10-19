@@ -10,7 +10,14 @@
 
         {% if form.non_field_errors %}
         <div class="alert alert-danger p-3 mb-2" role="alert">
-            {{ form.non_field_errors }}
+            {% for error in form.non_field_errors%}
+                {% if 'verify' in error %}
+                    You need to activate your mail to login
+                    <a href="{% url 'resend_mail' uname=error|cut:'verify-' %}">Click here to resend</a>
+                {% else %}
+                    {{ error }}
+                {%endif%}
+            {%endfor%}  
             </div>
         {%endif%}
 
