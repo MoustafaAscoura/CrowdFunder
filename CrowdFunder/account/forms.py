@@ -1,10 +1,14 @@
 import re
 from typing import Any
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm,AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
+from django.urls import reverse
+
 from django import forms
 from .models import User
+
 
 class CreateUserForm(UserCreationForm):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -42,6 +46,24 @@ class CreateUserForm(UserCreationForm):
         else:
             return email
     
+class LoginForm(AuthenticationForm):
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        if username is not None and password:
+            self.user_cache = authenticate(self.request, username=username, password=password)
+            if self.user_cache is None:
+                try:
+                    user_temp = User.objects.get(username=username)
+                except:
+                    raise self.get_invalid_login_error()
+                if not user_temp.is_active:
+                    raise forms.ValidationError("verify-"+username)
+            else:
+                self.confirm_login_allowed(self.user_cache)
+            
+            return self.cleaned_data
+
 
 class FullUserForm(UserChangeForm):
     password = None
