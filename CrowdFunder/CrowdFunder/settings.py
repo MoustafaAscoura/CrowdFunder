@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
     'home.apps.HomeConfig',
+    'projects.apps.ProjectsConfig',
+    'Feedback.apps.FeedbackConfig',
     'fontawesomefree',
     'django_cleanup',
-
 ]
 
 MIDDLEWARE = [
