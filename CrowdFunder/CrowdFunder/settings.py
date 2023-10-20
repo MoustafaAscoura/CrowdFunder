@@ -32,9 +32,9 @@ INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'Feedback.apps.FeedbackConfig',
     'fontawesomefree',
-    'django_cleanup',
+    'django_cleanup', #remove unlinked images
     'social_django',
-
+    'django_countries', #add countries field to model
 ]
 
 MIDDLEWARE = [

@@ -64,7 +64,6 @@ class LoginForm(AuthenticationForm):
             
             return self.cleaned_data
 
-
 class FullUserForm(UserChangeForm):
     password = None
     field_order = ['username','first_name','last_name','email']
