@@ -1,5 +1,4 @@
 {% extends 'home/base.html' %}
-{% load static %}
 {% block content %}
 
 
@@ -47,21 +46,17 @@
         <div class="text-center">
             <p>Not a member? <a href="{% url 'signup' %}">Register</a></p>
             <div class="brands d-flex justify-content-around w-50 mx-auto">
-                <button type="button" class="btn btn-link btn-floating mx-1">
+                <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'facebook' %}">
                     <i class="fa-brands fa-facebook"></i>
-                </button>
+                </a>
     
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fa-brands fa-twitter"></i>
-                </button>
-    
-                <button type="button" class="btn btn-link btn-floating mx-1">
+                <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'google-oauth2' %}">
                     <i class="fa-brands fa-google"></i>
-                </button>
+                </a>
     
-                <button type="button" class="btn btn-link btn-floating mx-1">
+                <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'github' %}">
                     <i class="fa-brands fa-github"></i>
-                </button>
+                </a>
             </div>
         </div>
     </form>

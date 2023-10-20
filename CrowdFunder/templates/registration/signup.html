@@ -6,21 +6,17 @@
     <form class="user-form w-50 mx-auto" method="post" enctype="multipart/form-data">
         <h4>Sign up with:</h4>
         <div class="brands d-flex justify-content-around w-50 mx-auto">
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-facebook"></i>
-            </button>
+            <a type="button" class="btn btn-link btn-floating mx-1">
+                <i class="fa-brands fa-facebook" href="{% url 'social:begin' 'facebook' %}"></i>
+            </a>
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-twitter"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
+            <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'google-oauth2' %}">
                 <i class="fa-brands fa-google"></i>
-            </button>
+            </a>
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
+            <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'github' %}">
                 <i class="fa-brands fa-github"></i>
-            </button>
+            </a>
         </div>
         <hr>
         {% csrf_token %}

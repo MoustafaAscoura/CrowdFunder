@@ -33,11 +33,8 @@ INSTALLED_APPS = [
     'Feedback.apps.FeedbackConfig',
     'fontawesomefree',
     'django_cleanup',
-    "allauth",
-    #"allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.github", # new
-    "allauth.socialaccount.providers.twitter", # new
+    'social_django',
+
 ]
 
 MIDDLEWARE = [
@@ -48,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+
 ]
 
 ROOT_URLCONF = 'CrowdFunder.urls'
@@ -63,6 +62,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -140,13 +141,19 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "crowdfunderdjango@gmail.com"
 EMAIL_HOST_PASSWORD = "hvmngzpdjsqblgpo"
 
-# social login
-
 AUTHENTICATION_BACKENDS = (
-    "allauth.account.auth_backends.AuthenticationBackend",
+    'social_core.backends.github.GithubOAuth2', # github <----
+    'social_core.backends.twitter.TwitterOAuth', # twitter <----
+    'social_core.backends.facebook.FacebookOAuth2', # facebook <----
+    'social_core.backends.google.GoogleOAuth2',  # google <----
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "index"
-ACCOUNT_LOGOUT_ON_GET = True
+SOCIAL_AUTH_GITHUB_KEY = '40d06a2a3d0d62d74dbd'
+SOCIAL_AUTH_GITHUB_SECRET = '3c725f49cb9edf369b33b23c1ecf9b3d9bc95cdc'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '534268798718-451t7sn6c7iuu8ts9jqvbhjtalg2vqa4.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_FACEBOOK_KEY = "3738217359745570"
+SOCIAL_AUTH_FACEBOOK_SECRET = "7fdf8462e923299f9b618e46656fd6b9"

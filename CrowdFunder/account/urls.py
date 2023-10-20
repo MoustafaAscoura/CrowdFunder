@@ -12,7 +12,8 @@ urlpatterns = [
     path('profile/delete/<int:pk>', DeleteAccount.as_view(), name='delete_user'),
     path("logout/", Logout, name="logout"),
     path('', include('django.contrib.auth.urls')),
-    path("socialauth/", include("allauth.urls")),
+    path('oauth/', include('social_django.urls'),name='social') 
+
 
 ]
 
