@@ -1,4 +1,4 @@
-from django.urls import path,include,re_path
+from django.urls import path,include
 from .views import *
 
 urlpatterns = [
@@ -12,5 +12,7 @@ urlpatterns = [
     path('profile/delete/<int:pk>', DeleteAccount.as_view(), name='delete_user'),
     path("logout/", Logout, name="logout"),
     path('', include('django.contrib.auth.urls')),
+    path("socialauth/", include("allauth.urls")),
+
 ]
 

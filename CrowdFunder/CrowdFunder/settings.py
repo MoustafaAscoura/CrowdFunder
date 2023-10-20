@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    "django.contrib.sites",
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -32,6 +33,11 @@ INSTALLED_APPS = [
     'Feedback.apps.FeedbackConfig',
     'fontawesomefree',
     'django_cleanup',
+    "allauth",
+    #"allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github", # new
+    "allauth.socialaccount.providers.twitter", # new
 ]
 
 MIDDLEWARE = [
@@ -133,3 +139,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "crowdfunderdjango@gmail.com"
 EMAIL_HOST_PASSWORD = "hvmngzpdjsqblgpo"
+
+# social login
+
+AUTHENTICATION_BACKENDS = (
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGIN_REDIRECT_URL = "index"
+ACCOUNT_LOGOUT_ON_GET = True

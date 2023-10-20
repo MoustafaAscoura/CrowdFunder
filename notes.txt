@@ -19,7 +19,7 @@ superuser is ascoura password=12345
 
 	2 - run your virtual environment
 	3 - run pip install -r requirments.txt
-	3 - makemigrations and migrate
+	3 - DONOT makemigrations XXXXX. ONLY RUN migrate
 	4 - make your changes
 	5 - run (pip freeze > requirments.txt) if you installed any new libraries
 	6 - stage and commit your changes
@@ -48,6 +48,7 @@ User: A new app
 ##	- The user should be able to login after activation using his email and password 
 
 	- Bonus: Allow users to login with facebook account
+
 	- Forgot Password (Bonus)
 	- The user should have an option to reset his password if he forgot it to receive a password reset link to his email
 	
@@ -59,7 +60,7 @@ User: A new app
 	- He can edit all his data except for the email
 	- He can have extra optional info other than the info he added while registration (Birthdate, facebook profile, country) 
 	- User can delete his account (Note that there must be a confirmation message before deleting) 
-	- Bonus: User must enter his password to delete his account 
+	- Bonus: User must enter his password to delete his account
 
 ====================
 

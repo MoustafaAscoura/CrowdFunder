@@ -14,9 +14,4 @@ class Migration(migrations.Migration):
             model_name='user',
             name='mailactivated',
         ),
-        migrations.AddField(
-            model_name='user',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, null=True),
-        ),
     ]
