@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any
 from django import forms
-from . models import Project
+from . models import Project , Category
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -22,3 +22,10 @@ class ProjectForm(forms.ModelForm):
             if end_date <= start_date:
                 msg = "End date should be greater than start date."
                 self._errors["end_time"] = self.error_class([msg])
+
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = '__all__'

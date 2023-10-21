@@ -1,0 +1,9 @@
+{% extends "home/base.html" %}
+
+{% block title %} Show Category {% endblock title %}
+
+{% block content %}
+{% for catg in categories %}
+    <h2>{{catg.name }}</h2>
+{% endfor %}
+{% endblock %}
