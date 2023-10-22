@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('projects.urls')),
     path('',include('home.urls')),
-    re_path('account/',include('account.urls')),
+    path('accounts/',include('account.urls')),
     path('Feedback',include('Feedback.urls')),
 
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

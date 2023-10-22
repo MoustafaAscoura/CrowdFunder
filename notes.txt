@@ -47,20 +47,23 @@ User: A new app
 ##	- Once the user register he should receive an email with the activation link. The user shouldn’t be able to login without activation. The activation link should expire after 24 hours.
 ##	- The user should be able to login after activation using his email and password 
 
-	- Bonus: Allow users to login with facebook account
+##	- Bonus: Allow users to login with facebook account
 
-	- Forgot Password (Bonus)
-	- The user should have an option to reset his password if he forgot it to receive a password reset link to his email
+##	- Forgot Password (Bonus)
+##	- The user should have an option to reset his password if he forgot it to receive a password reset link to his email
 	
 	
 ##	- User Profile, The user can view his profile which: 
 ##	- He can view his profile 
+
 	- He can view his projects 
 	- He can view his donations 
-	- He can edit all his data except for the email
-	- He can have extra optional info other than the info he added while registration (Birthdate, facebook profile, country) 
-	- User can delete his account (Note that there must be a confirmation message before deleting) 
-	- Bonus: User must enter his password to delete his account
+
+##	- He can edit all his data except for the email
+##	- He can have extra optional info other than the info he added while registration (Birthdate, facebook profile, country)
+	
+##	- User can delete his account (Note that there must be a confirmation message before deleting) 
+##	- Bonus: User must enter his password to delete his account
 
 ====================
 

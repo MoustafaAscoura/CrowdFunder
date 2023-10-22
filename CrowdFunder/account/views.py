@@ -1,5 +1,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect,resolve_url
 from django.urls import reverse_lazy,reverse
 from django.utils.encoding import force_str
@@ -17,6 +19,11 @@ class Login(LoginView):
         if self.next_page:
             return resolve_url(self.next_page)
         return reverse('index')
+    
+    def form_valid(self, form):
+        """Security check complete. Log the user in."""
+        login(self.request, form.get_user(), backend='django.contrib.auth.backends.ModelBackend')
+        return HttpResponseRedirect(self.get_success_url())
 
 class CreateAccount(generic.CreateView):
     model = User
@@ -42,7 +49,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
+        login(request, user,backend='django.contrib.auth.backends.ModelBackend')
         return redirect(reverse('index'))
     else:
         return redirect(reverse('error'))
@@ -62,12 +69,45 @@ def Logout(request):
     return redirect('index')
 
 class EditAccount(generic.UpdateView):
+    def get_object(self):
+        return self.request.user
     model = User
     form_class = FullUserForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('index')
     template_name='registration/edit.html'
 
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        picture = self.request.FILES.get("picture")
+        if picture:
+            w, h = get_image_dimensions(picture)
+            if w > 800 or h > 800:
+                form._update_errors(ValidationError("Picture Dimensions must be 800*800 or less"))
+                return self.form_invalid(form)
+        else:
+            picture = self.get_object().picture
+            
+        user.picture = picture
+        user.save()
+        return redirect(self.success_url)
+        
 class DeleteAccount(generic.DeleteView):
+    def get_object(self):
+        return self.request.user
+
     model = User
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('index')
+    def form_valid(self, form):
+        password = form.cleaned_data.get('password')
+        username=self.object.username
+        user_cache = authenticate(self.request, username=username, password=password)
+        if user_cache is not None:
+            success_url = self.get_success_url()
+            self.object.delete()
+            return HttpResponseRedirect(success_url)
+        
+        form.error = forms.ValidationError("Wrong password! Try again.")
+        return self.form_invalid(form)
+    
+
 

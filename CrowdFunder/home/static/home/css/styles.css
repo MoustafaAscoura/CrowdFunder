@@ -4,6 +4,18 @@
     box-sizing: border-box;
 }
 
+body {
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 ul.errorlist {
     list-style-type: none;
     margin: 0;

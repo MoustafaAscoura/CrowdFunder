@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm,AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
-from django.urls import reverse
+from django.forms.widgets import NumberInput
 
 from django import forms
 from .models import User
@@ -34,8 +34,8 @@ class CreateUserForm(UserCreationForm):
         picture = self.cleaned_data.get("picture")
         if picture:
             w, h = get_image_dimensions(picture)
-            if w > 400 or h > 400:
-                self._update_errors(ValidationError({"picture": "Picture Dimensions must be 400*400 or less"}))
+            if w > 800 or h > 800:
+                self._update_errors(ValidationError({"picture": "Picture Dimensions must be 800*800 or less"}))
 
         return picture
 
@@ -66,9 +66,17 @@ class LoginForm(AuthenticationForm):
 
 class FullUserForm(UserChangeForm):
     password = None
-    field_order = ['username','first_name','last_name','email']
+    email = forms.EmailField(disabled=True)
+    birthdate = forms.DateTimeField(widget=NumberInput(attrs={'type':'date'}))
     class Meta:
         model=User
-        fields = ['username','first_name','last_name','email']
+        fields = ['username','first_name','last_name','email','phone','birthdate','profile','country']
+        labels = {
+            "profile": "Social Media URL"
+        }
+    
+    def clean_email(self):
+        return self.instance.email
+            
     
 
