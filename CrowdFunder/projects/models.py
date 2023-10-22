@@ -7,14 +7,13 @@ from account.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    
     def __str__(self):
         return self.name
 
 class Project(models.Model):
     title = models.CharField(max_length=100)
     details = models.TextField()
-    total_target = models.FloatField()
+    total_target = models.DecimalField(decimal_places=3,max_digits=10)
     start_time = models.DateTimeField(default=timezone.now)
     end_time = models.DateTimeField(default=timezone.now)
     # rate = models.IntegerField(default=0)

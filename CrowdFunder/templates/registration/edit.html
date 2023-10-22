@@ -20,9 +20,6 @@
                 {{ field.label_tag }}
                 {{ field }}
                 {{ field.errors }}
-                {% if field.help_text %}
-                    <div class="alert alert-warning pb-1 pt-2 mb-2" role="alert">{{ field.help_text }}</div>
-                {%endif%}
             </div>
         {%endfor%}
             <div class="mb-3">

@@ -5,9 +5,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('projects.urls')),
     path('',include('home.urls')),
+    path('projects/',include('projects.urls')),
     path('accounts/',include('account.urls')),
-    path('Feedback',include('Feedback.urls')),
+    path('feedback/',include('Feedback.urls')),
 
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -1,5 +1,7 @@
+from typing import Any
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
+from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect,resolve_url
@@ -7,8 +9,10 @@ from django.urls import reverse_lazy,reverse
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from django.views import generic
+from social_django.models import UserSocialAuth
 
 from .models import User
+from projects.models import Project,Donation
 from .forms import *
 from .tokens import account_activation_token,send_verification_email
 
@@ -93,15 +97,19 @@ class EditAccount(generic.UpdateView):
         
 class DeleteAccount(generic.DeleteView):
     def get_object(self):
+        self.is_social_user = UserSocialAuth.objects.filter(user_id=self.request.user.id).exists()
+        self.extra_context={'oauth': self.is_social_user}
         return self.request.user
 
     model = User
     success_url = reverse_lazy('index')
+    
+
     def form_valid(self, form):
-        password = form.cleaned_data.get('password')
+        password = self.request.POST.get('password')
         username=self.object.username
         user_cache = authenticate(self.request, username=username, password=password)
-        if user_cache is not None:
+        if user_cache is not None or self.is_social_user:
             success_url = self.get_success_url()
             self.object.delete()
             return HttpResponseRedirect(success_url)
@@ -109,5 +117,15 @@ class DeleteAccount(generic.DeleteView):
         form.error = forms.ValidationError("Wrong password! Try again.")
         return self.form_invalid(form)
     
+class ProjectsView(generic.ListView):
+    # template_name = 
+    # def get_queryset(self):
+    #     return Project.query.filter(user=self.request.user)
+    pass
 
+class DonationsView(generic.ListView):
+    # template_name = 
+    # def get_queryset(self):
+    #     return Donation.query.filter(user=self.request.user)
+    pass
 

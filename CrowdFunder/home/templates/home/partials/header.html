@@ -1,85 +1,67 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgb(108, 108, 108);
+    border-radius: 4.5rem;
+    margin: 2rem;
+    height: 4rem;
+    FONT-WEIGHT: bold;
+    box-shadow: 0 0 10px;
+    font-size: 1.2rem;">
+  <div class="container">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact us</a>
+        </li>
 
+      </ul>
 
+      <form class="ms-5 d-flex" action="/search" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" name="value" type="search" placeholder="Search" aria-label="Search">
+        <a href=""><i class="fa fa-search" style="color:white;font-size: 1.5rem;margin-left: 13px;margin-top: 5px;"
+            aria-hidden="true"></i> </a>
+      </form>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary" style="    background-color: rgb(0 0 0);
-border-radius: 4.5rem;
-margin: 2rem;
-height: 8rem;
-FONT-WEIGHT: bold;
-box-shadow: 0 0 10px;
-font-size: 1.2rem;">
-    <div class="container">
-      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Categories</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contact">Contact us</a>
-          </li>
-          
-        </ul>
-        
-        <form class="ms-5 d-flex" action="/search" method="get">
-          {% csrf_token %}
-          <input class="form-control me-2" name="value" type="search" placeholder="Search" aria-label="Search">
-         <a href=""><i class="fa fa-search" style="color:white;font-size: 1.5rem;margin-left: 13px;margin-top: 5px;" aria-hidden="true"></i> </a>
-        </form>
+      <ul class="navbar-nav">
+        {% if user.id %}
 
-        <ul class="navbar-nav">
-          {% if user.id %}
-          <li class="nav-item d-flex align-items-center">
-            Welcome,<a class="nav-link" style="color:white; background-color:#0dcaf06b;     border-radius: 1rem;
-            width: 5.5rem;
-            opacity: 90%;" href="{% url 'profile' pk=user.id %}"> {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}</a>
-          </li>
+          <div class="btn-group">
+            <a type="button" class="btn btn-info" href="{% url 'profile' pk=user.id %}">
+              <img src="{{user.get_profile_picture}}" 
+              onerror="this.onerror=null;this.src='/media/account/images/annon.png';" 
+              alt="Avatar" class="img-fluid rounded-circle me-2" style="width: 30px;" />
+              {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}
+            </a>
+            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-gear"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'userprojects' %}">Your Projects</a></li>
+              <li><a class="dropdown-item" href="{% url 'userdonations' %}">Your Donations</a></li>
+              <li><a class="dropdown-item" href="{% url 'editprofile' %}">Edit Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </div>
 
-          <ul class="d-flex">
-          <li class="nav-item">
-            <a class="nav-link m-0" style="c    background-color: #e2d6d6;
-            border-radius: 1rem;
-            color: maroon;" href="{% url 'logout' %}">Logout</a>
-          </li>
-         
-               
-             
-              <div class="dropdown me-1">
-               
-               <i class="fa-solid fa-gear dropdown-toggle nav-item" style="padding-left: 1rem;
-               padding-top: 14px;
-               cursor: pointer;
-               color: white;" href="" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20"></i>
-              
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" >
-                    
-                   
-
-                      <a class="nav-link m-0 dropdown-menu" href="{% url 'editprofile' %}">
-                        
-                    
-                    Edit Profile</a></li>
-                  
-                </ul>
-              </div>
-         
-  
-        {% else %}
+          {% else %}
           <li class="nav-item">
             <a class="nav-link m-0" href="{% url 'login' %}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link m-0" href="{% url 'signup' %}">Signup</a>
           </li>
-        {% endif %}
+          {% endif %}
         </ul>
-        </ul>
-      </div>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

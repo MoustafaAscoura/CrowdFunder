@@ -45,11 +45,7 @@
         <!-- Register buttons -->
         <div class="text-center">
             <p>Not a member? <a href="{% url 'signup' %}">Register</a></p>
-            <div class="brands d-flex justify-content-around w-50 mx-auto">
-                <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'facebook' %}">
-                    <i class="fa-brands fa-facebook"></i>
-                </a>
-    
+            <div class="brands d-flex justify-content-around w-50 mx-auto"> 
                 <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'google-oauth2' %}">
                     <i class="fa-brands fa-google"></i>
                 </a>

@@ -6,10 +6,6 @@
     <form class="user-form w-50 mx-auto" method="post" enctype="multipart/form-data">
         <h4>Sign up with:</h4>
         <div class="brands d-flex justify-content-around w-50 mx-auto">
-            <a type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fa-brands fa-facebook" href="{% url 'social:begin' 'facebook' %}"></i>
-            </a>
-
             <a type="button" class="btn btn-link btn-floating mx-1" href="{% url 'social:begin' 'google-oauth2' %}">
                 <i class="fa-brands fa-google"></i>
             </a>

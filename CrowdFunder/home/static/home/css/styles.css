@@ -19,6 +19,45 @@ body {
     background-color: #fdfdfdd6;
 }   
 
+/* Home Page Styling */
+
+
+#home {
+    position: relative;
+    width: 100%;
+    height: 730px;
+    margin-top: -2rem;
+    border-radius: 0.5rem;
+    
+}
+
+a.start {
+    position: absolute;
+    font-WEIGHT: bold;
+    top: 50%;
+    left: 33%;
+    font-size: 2rem;
+    border-radius: 2rem;
+    height: 7rem;
+    line-height: 3;
+    box-shadow: 0 0 11px;
+
+}
+
+
+#home.container.join {
+    padding: 6rem;
+    padding-left: 570px;
+}
+
+#home .btn-secondary {
+    color: #07829b;
+    background-color: #f8eaea00;
+    border-color: #6c757d;
+}
+
+/* End of Home Page Styling */
+
 footer {
     position: absolute;
     bottom: 0;
@@ -38,5 +77,4 @@ div.brands i {
 button.btn.search:hover {
     background-color: rgb(145, 39, 39);
     
-
 }

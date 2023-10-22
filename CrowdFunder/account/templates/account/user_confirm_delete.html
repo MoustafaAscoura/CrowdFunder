@@ -4,14 +4,18 @@
 <div class="container my-5">
     <form class="user-form w-50 mx-auto" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        
+        {{ form }}
         {% if form.error %}
         <div class="alert alert-danger" role="alert">{{form.error}}</div>
         {%endif%}
+        <h3 class="text-center">Careful! Your are going to delete your account</h3>
+        {%if not oauth %}
         <div class="form-outline mb-3">
             <label for="id_password" class="form-label">Please enter your password for confirmation:</label>
-            <input type="password" name="password" autocomplete="current-password" required="" id="id_password" class="form-control">
+            <input type="password" name="password" autocomplete="current-password" id="id_password" class="form-control">
         </div>
+        {%endif%}
+
         <div class="d-flex justify-content-around my-5">
             <a href="{%url 'index'%}" class="btn btn-outline-secondary btn-block w-25">Cancel</a>
             <button type="submit" class="btn btn-danger btn-block w-25">Confirm</button>
