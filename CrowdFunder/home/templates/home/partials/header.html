@@ -1,4 +1,13 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.086);">
+
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="    background-color: rgb(0 0 0);
+border-radius: 4.5rem;
+margin: 2rem;
+height: 8rem;
+FONT-WEIGHT: bold;
+box-shadow: 0 0 10px;
+font-size: 1.2rem;">
     <div class="container">
       <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul class="navbar-nav">
@@ -6,7 +15,7 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'category.list' %}">Categories</a>
+            <a class="nav-link active" aria-current="page" href="#">Categories</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/about">About us</a>
@@ -20,20 +29,47 @@
         <form class="ms-5 d-flex" action="/search" method="get">
           {% csrf_token %}
           <input class="form-control me-2" name="value" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+         <a href=""><i class="fa fa-search" style="color:white;font-size: 1.5rem;margin-left: 13px;margin-top: 5px;" aria-hidden="true"></i> </a>
         </form>
 
         <ul class="navbar-nav">
           {% if user.id %}
           <li class="nav-item d-flex align-items-center">
-            Welcome,<a class="nav-link" href="{% url 'profile' pk=user.id %}"> {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}</a>
+            Welcome,<a class="nav-link" style="color:white; background-color:#0dcaf06b;     border-radius: 1rem;
+            width: 5.5rem;
+            opacity: 90%;" href="{% url 'profile' pk=user.id %}"> {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}</a>
           </li>
+
+          <ul class="d-flex">
           <li class="nav-item">
-            <a class="nav-link m-0" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-link m-0" style="c    background-color: #e2d6d6;
+            border-radius: 1rem;
+            color: maroon;" href="{% url 'logout' %}">Logout</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link m-0" href="{% url 'editprofile' %}">Edit Profile</a>
-          </li>
+         
+               
+             
+              <div class="dropdown me-1">
+               
+               <i class="fa-solid fa-gear dropdown-toggle nav-item" style="padding-left: 1rem;
+               padding-top: 14px;
+               cursor: pointer;
+               color: white;" href="" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20"></i>
+              
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" >
+                    
+                   
+
+                      <a class="nav-link m-0 dropdown-menu" href="{% url 'editprofile' %}">
+                        
+                    
+                    Edit Profile</a></li>
+                  
+                </ul>
+              </div>
+         
+  
         {% else %}
           <li class="nav-item">
             <a class="nav-link m-0" href="{% url 'login' %}">Login</a>
@@ -42,6 +78,7 @@
             <a class="nav-link m-0" href="{% url 'signup' %}">Signup</a>
           </li>
         {% endif %}
+        </ul>
         </ul>
       </div>
     </div>
