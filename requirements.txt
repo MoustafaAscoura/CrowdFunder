@@ -2,6 +2,7 @@ asgiref==3.7.2
 certifi==2023.7.22
 cffi==1.16.0
 charset-normalizer==3.3.0
+crispy-bootstrap5==0.7
 cryptography==41.0.4
 defusedxml==0.8.0rc2
 Deprecated==1.2.14
@@ -9,6 +10,7 @@ Django==4.2.6
 django-braces==1.15.0
 django-cleanup==8.0.0
 django-countries==7.5.1
+django-crispy-forms==2.1
 django-oauth-toolkit==2.3.0
 django-rest-framework-social-oauth2==1.1.0
 django-utils-six==2.0
@@ -30,5 +32,6 @@ social-auth-app-django==5.4.0
 social-auth-core==4.4.2
 sqlparse==0.4.4
 typing_extensions==4.8.0
+tzdata==2023.3
 urllib3==2.0.7
 wrapt==1.15.0

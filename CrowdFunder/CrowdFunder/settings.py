@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django_cleanup', #remove unlinked images
     'social_django',
     'django_countries', #add countries field to model
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'CrowdFunder.urls'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 TEMPLATES = [
     {

@@ -16,12 +16,12 @@
     }
 </style>
 
-<h2 style="text-align: center">Add Project</h2>
+<h2 style="text-align: center">Edit Project</h2>
 <div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 100vh;">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary text-white mr-3 submit-button">Add Project</button>
+        <button type="submit" class="btn btn-primary text-white mr-3 submit-button">Edit Project</button>
     </form>
     
 </div>
