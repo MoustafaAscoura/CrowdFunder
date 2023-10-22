@@ -4,11 +4,20 @@
     box-sizing: border-box;
 }
 
+html {
+    /* background-color: antiquewhite; */
+    background-color: #fdfdfdd6;
+    background: url('../images/download.png');
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
 body {
     min-height: 100vh;
     position: relative;
     padding-bottom: 20px;
-}
+    background-color: #fdfdfdd6;
+}   
 
 footer {
     position: absolute;
@@ -24,4 +33,10 @@ ul.errorlist {
 
 div.brands i {
     font-size: 30px;
+}
+
+button.btn.search:hover {
+    background-color: rgb(145, 39, 39);
+    
+
 }
