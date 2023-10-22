@@ -42,11 +42,20 @@ def category_list(request):
 
 
 def create_category(request):
+    category_list = Category.objects.all()
+    
+
     if request.method == 'POST':
         form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('category_list')
+        new_category = request.POST['name']
+        for category in category_list:
+            if category_list.name == new_category:
+                error = 'Name not valid!'
+                return render(request , 'categories/create/create.html',context={'form': form, 'error': error})
+        
+        
+        form.save()
+        return redirect('category.list')
     else:
         form = CategoryForm()
     return render(request, 'categories/create/create.html', {'form': form})
