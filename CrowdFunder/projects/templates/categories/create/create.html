@@ -7,15 +7,17 @@
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
 
-        <form method="post" action="category_form" class="card w-50 text-center mt-5" autocomplete="off">
+        <form method="post" action="category_form" class="card w-50 mt-5" autocomplete="off">
 
             {%csrf_token%}
             {%for field in form%}
-            <label for="">Category</label>
+            <label for="" class="fs-3 m-3">Category</label>
             <input type="text" name="{{field.name}}" />
-            <span class="text-error">{{ form_error }}</span>
+            <span class="text-error">{{ error }}</span>
             {%endfor%}
-            <button type="submit" class="btn bg-outline-danger"> save</button>
+            <div>
+                <a class="btn btn-outline-warning m-3" href="{% url 'category.list' %}">Save</a>
+            </div>
         </form>
 
     </div>
