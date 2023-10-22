@@ -1,25 +1,32 @@
-{% extends "home/base.html" %}
-{% load static %}
+{% extends 'home/base.html' %}
 
-{% block title %} Create Category {% endblock title %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row d-flex justify-content-center">
+<style>
+    /* Increase the size of the form fields */
+    .form-control {
+        height: 50px;
+        font-size: 18px;
+    }
 
-        <form method="post" action="category_form" class="card w-50 mt-5" autocomplete="off">
+    /* Move the submit button above the footer */
+    .submit-button {
+        margin-top: 8px;
+    }
+</style>
 
-            {%csrf_token%}
-            {%for field in form%}
-            <label for="" class="fs-3 m-3">Category</label>
-            <input type="text" name="{{field.name}}" />
-            <span class="text-error">{{ error }}</span>
-            {%endfor%}
-            <div>
-                <a class="btn btn-outline-warning m-3" href="{% url 'category.list' %}">Save</a>
-            </div>
-        </form>
-
-    </div>
+<h2 style="text-align: center">Add Category</h2>
+<div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 100vh;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary text-white mr-3 submit-button">Add Category</button>
+    </form>
+    
 </div>
+<br>
 {% endblock %}
+
+
+

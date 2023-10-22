@@ -1,9 +1,18 @@
-{% extends "home/base.html" %}
-
-{% block title %} Show Category {% endblock title %}
+{% extends 'Home/base.html' %}
+{% load static %}
 
 {% block content %}
-{% for catg in categories %}
-    <h2>{{catg.name }}</h2>
-{% endfor %}
+<div class="card-container">
+    
+    {% for cat in categories %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">{{ cat.name }}</h4>
+            <a href="{% url 'category_detail' category=cat.name %}" class="btn btn-primary text-white mr-3">Show Projects {{ cat.name }}</a>
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{% url 'category_create' %}" class="btn btn-warning text-white mr-3">Add Category</a>
+</div>
+
 {% endblock %}

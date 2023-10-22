@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h2> Category: {{ category }}</h2>
+        {% for project in projects %}
+        <div class="card">
+            
+        </div>
+        <div class="details">
+            <h2>{{ project.title }}</h2>
+            <p>Description: {{ project.details }}</p>
+            <p>Total Target: {{ project.total_target }}$</p>
+            <p>Owner: {{ project.user }}</p>
+            <div class="buttons"> 
+                <a href="{% url 'project_list' %}" class="btn bg-primary text-white">Back</a>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

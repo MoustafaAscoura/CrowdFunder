@@ -7,52 +7,7 @@ from django.forms.widgets import NumberInput
 
 
 class ProjectForm(forms.ModelForm):
-    title = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Title", "class": "form-control"})
-    )
-    details = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"placeholder": "Details", "class": "form-control", "rows": "3"}
-        )
-    )
-    total_target = forms.FloatField(
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Total Target",
-                "class": "form-control",
-                "onkeypress": "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))",
-            }
-        )
-    )
-    start_time = forms.DateTimeField(
-        widget=NumberInput(
-            attrs={
-                "placeholder": "Start date & time",
-                "type": "datetime-local",
-                "class": "form-control",
-            }
-        )
-    )
-    end_time = forms.DateTimeField(
-        widget=NumberInput(
-            attrs={
-                "placeholder": "End date & time",
-                "type": "datetime-local",
-                "class": "form-control",
-            }
-        )
-    )
-    category = (
-        forms.ModelChoiceField(
-            queryset=Category.objects.all(),
-            widget=forms.Select(attrs={"class": "form-control"}),
-        ),
-    )
-    # tag = forms.ModelMultipleChoiceField(
-    #     queryset=Tag.objects.all(),
-    #     widget=forms.SelectMultiple(attrs={"class": "form-control"}),
-    #     required=False,
-    # )
+    
 
     class Meta:
         model = Project
@@ -60,8 +15,12 @@ class ProjectForm(forms.ModelForm):
         exclude = ['user']
 
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
 
-
+    
 
 # class ProjectForm(forms.ModelForm):
 #     class Meta:

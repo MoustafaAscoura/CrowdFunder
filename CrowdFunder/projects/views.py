@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render ,get_object_or_404,redirect
 from . models import Project , Category
-from . forms import ProjectForm 
+from . forms import ProjectForm , CategoryForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -33,7 +33,7 @@ def create_project(request):
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             if Project.objects.filter(title=form.cleaned_data['title']).exists():
-                form.add_error('title', 'A gun with this name already exists.')
+                form.add_error('title', 'A project with this name already exists.')
             else:
             # Save the form data to create a new Project object
                 project = Project(
@@ -95,44 +95,39 @@ def edit_project(request, id):
     return render(request, 'projects/create/edit.html', context)
 
 
-# def create_project(request):
-#     if request.method == 'POST':
-#         form = ProjectForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             if Project.objects.filter(title=form.cleaned_data['title']).exists():
-#                 form.add_error('title', 'A project with this title already exists.')
-#             else:
-#                 project = form.save(commit=False)
-#                 project.user = request.user
-#                 project.save()
-#                 return redirect('project_list')
-#     else:
-#         form = ProjectForm()
-#     return render(request, 'projects/create/create.html', {'form': form})
 
 
-# def edit_project(request, project_id):
-#     project = get_object_or_404(Project, id=project_id)
-#     if request.method == 'POST':
-#         form = ProjectForm(request.POST, instance=project)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('project_detail', project_id=project_id)
-#     else:
-#         form = ProjectForm(instance=project)
-#     return render(request, 'edit_project.html', {'form': form, 'project': project})
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'categories/category_list.html', {'categories': categories})
 
-# def category_list(request):
-#     categories = Category.objects.all()
-#     return render(request, 'categories/category_list.html', {'categories': categories})
+def category_detail(request, category):
+    projects = Project.objects.filter(category__name=category)
+    context = {
+        'projects': projects,
+        'category': category
+    }
+    return render(request, 'categories/category_detail.html', context)
+    
 
+@login_required
+def create_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            if Category.objects.filter(name=form.cleaned_data['name']).exists():
+                form.add_error('name', 'A category with this name already exists.')
+            else:
+            # Save the form data to create a new Category object
+                category = Category(
+                    name=form.cleaned_data['name'],
+                )
+                category.save()
+                return redirect('category.list')
+    else:
+        form = CategoryForm()
 
-# def create_category(request):
-#     if request.method == 'POST':
-#         form = CategoryForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('category_list')
-#     else:
-#         form = CategoryForm()
-#     return render(request, 'categories/create/create.html', {'form': form})
+    context = {
+        'form': form
+    }
+    return render(request, 'categories/create/create.html', context)
