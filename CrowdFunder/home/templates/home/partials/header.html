@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Categories</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'project_list' %}">Explore</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About us</a>
@@ -23,16 +23,13 @@
 
       </ul>
 
-      <form class="ms-5 d-flex" action="/search" method="get">
-        {% csrf_token %}
-        <input class="form-control me-2" name="value" type="search" placeholder="Search" aria-label="Search">
-        <a href=""><i class="fa fa-search" style="color:white;font-size: 1.5rem;margin-left: 13px;margin-top: 5px;"
-            aria-hidden="true"></i> </a>
+      <form class="ms-5 d-flex" action="{% url 'search' %}" method="get">
+        <input class="form-control me-2" name="param" type="search" placeholder="Search" aria-label="Search">
+        <button type="submit" class="btn p-0"><i class="fa fa-search text-light fs-4"></i></button>
       </form>
 
       <ul class="navbar-nav">
         {% if user.id %}
-
           <div class="btn-group">
             <a type="button" class="btn btn-info" href="{% url 'profile' pk=user.id %}">
               <img src="{{user.get_profile_picture}}" 

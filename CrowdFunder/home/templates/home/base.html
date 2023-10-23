@@ -10,21 +10,21 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-
-    
 </head>
 <body>
 
     {% include 'home/partials/header.html' %}
 
-    <main>{% block content %}
-                
-        {% endblock %}</main>
+    <main>
+        {% block content %} 
+        {% endblock %}
+    </main>
 
     {% include 'home/partials/footer.html'%}
 
-
     <script src="{% static 'home/bootstrap/js/bootstrap.js' %}"></script>   
+    <script src="{% static 'home/js/metro.min.js' %}"></script>   
     <script src="{% static 'home/js/script.js' %}"></script>   
+    
 </body>
 </html> 

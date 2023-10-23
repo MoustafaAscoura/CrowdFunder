@@ -10,8 +10,6 @@
 		
 	clone the repo
 
-superuser is ascoura password=12345
-
 ## Todo everytime you want to work
 
 	1 - start by pulling the repo
@@ -77,7 +75,8 @@ User: A new app
 		- Set start/end time for the campaign 
 		- Comments
 
-	- Users can view any project and donate to the total target - Users can add comments on the projects 
+	- Users can view any project and donate to the total target 
+	- Users can add comments on the projects 
 	- Bonus: Comments can have replies 
 	- Users can report inappropriate projects 
 	- Users can report inappropriate comments 
@@ -86,10 +85,10 @@ User: A new app
 	- Project page should show the overall average rating of the project - Project page should show the project pictures in a slider
 	- Project page should show 4 other similar projects based on project tags 
 
-	model: Donation
-	- Amount
-	- project
-	- user
+##	model: Donation
+##	- Amount
+##	- project
+##	- user
 
 =======================================
 App: Homepage should contains the following:

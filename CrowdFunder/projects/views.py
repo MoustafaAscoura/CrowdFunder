@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render ,get_object_or_404,redirect
-from . models import Project , Category
-from . forms import ProjectForm , CategoryForm
+from . models import Project
+from . forms import ProjectForm
 from django.contrib.auth.decorators import login_required
-
+from django.views import generic
+from django.urls import reverse_lazy
 
 def project_list(request):
     projects = Project.objects.all()
@@ -12,7 +13,6 @@ def project_list(request):
 def project_detail(request, id):
     project = get_object_or_404(Project, id=id)
     return render(request, 'projects/project_detail.html', {'project': project})
-
 
 @login_required
 def delete(request, id):
@@ -27,33 +27,17 @@ def delete(request, id):
     else:
         return HttpResponse("Sorry, project not found")   
 
-@login_required
-def create_project(request):
-    if request.method == 'POST':
-        form = ProjectForm(request.POST, request.FILES)
-        if form.is_valid():
-            if Project.objects.filter(title=form.cleaned_data['title']).exists():
-                form.add_error('title', 'A project with this name already exists.')
-            else:
-            # Save the form data to create a new Project object
-                project = Project(
-                    title=form.cleaned_data['title'],
-                    details=form.cleaned_data['details'],
-                    total_target=form.cleaned_data['total_target'],
-                    start_time=form.cleaned_data['start_time'],
-                    end_time=form.cleaned_data['end_time'],
-                    category=form.cleaned_data['category'],
-                    user=request.user
-                )
-                project.save()
-                return redirect('project_list')
-    else:
-        form = ProjectForm()
+class CreateProject(generic.CreateView):
+    model = Project
+    form_class = ProjectForm
+    success_url = reverse_lazy('project_list')
+    template_name='projects/create/create.html'
 
-    context = {
-        'form': form
-    }
-    return render(request, 'projects/create/create.html', context)
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 @login_required
 def edit_project(request, id):
@@ -94,40 +78,10 @@ def edit_project(request, id):
     }
     return render(request, 'projects/create/edit.html', context)
 
-
-
-
-def category_list(request):
-    categories = Category.objects.all()
-    return render(request, 'categories/category_list.html', {'categories': categories})
-
-def category_detail(request, category):
-    projects = Project.objects.filter(category__name=category)
-    context = {
-        'projects': projects,
-        'category': category
-    }
-    return render(request, 'categories/category_detail.html', context)
-    
-
-@login_required
-def create_category(request):
-    if request.method == 'POST':
-        form = CategoryForm(request.POST, request.FILES)
-        if form.is_valid():
-            if Category.objects.filter(name=form.cleaned_data['name']).exists():
-                form.add_error('name', 'A category with this name already exists.')
-            else:
-            # Save the form data to create a new Category object
-                category = Category(
-                    name=form.cleaned_data['name'],
-                )
-                category.save()
-                return redirect('category.list')
-    else:
-        form = CategoryForm()
-
-    context = {
-        'form': form
-    }
-    return render(request, 'categories/create/create.html', context)
+class CategoryView(generic.TemplateView):
+    template_name = 'projects/project_list.html'
+    def get_queryset(self):
+        name = self.kwargs.get('category')
+        projects = Project.objects.filter(category=name)
+        self.extra_context={'mode':'category'}
+        return projects

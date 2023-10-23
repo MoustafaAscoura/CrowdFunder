@@ -1,50 +1,36 @@
 from datetime import datetime
 from typing import Any
 from django import forms
-from .models import Project, Category
-from django.forms.widgets import NumberInput
+from .models import Project
 
 
 
 class ProjectForm(forms.ModelForm):
-    
+    categories = (('Social','Social'),('Humanitarian', 'Humanitarian'),
+                  ('Health', 'Health'),('Education','Education'),
+                  ('Political','Political')) 
+    category = forms.ChoiceField(choices=categories)
+    start_time = forms.DateTimeField(widget=forms.NumberInput(attrs={'type':'date'}),required=False)
+    end_time = forms.DateTimeField(widget=forms.NumberInput(attrs={'type':'date'}),required=False)
+    tags = forms.CharField(widget=forms.TextInput(
+          attrs={'data-role':"taginput",'data-max-tags':"6",'data-random-color':"true"})
+          ,required=False)
 
     class Meta:
         model = Project
-        # fields = '__all__'
         exclude = ['user']
 
+    def clean_tags(self):
+        return self.cleaned_data.get('tags').split(',')
 
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = '__all__'
+    def clean(self):
+        start_date = self.cleaned_data.get('start_time')
+        end_date = self.cleaned_data.get('end_time')
+        if datetime.now().date() > start_date.date():
+            msg = "Start date shouldn't be less than today."
+            self._errors["start_time"] = self.error_class([msg])
+        
+        if end_date <= start_date:
+            msg = "End date should be greater than start date."
+            self._errors["end_time"] = self.error_class([msg])
 
-    
-
-# class ProjectForm(forms.ModelForm):
-#     class Meta:
-#         model = Project
-#         fields = '__all__'
-
-
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         start_date = cleaned_data.get('start_time')
-#         end_date = cleaned_data.get('end_time')
-#         today_date = datetime.strptime(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
-
-#         if today_date.date() > end_date.date():
-#             msg = "End date should be greater than Current date [ Should be after today !]."
-#             self._errors["end_time"] = self.error_class([msg])
-#         else:
-#             if end_date <= start_date:
-#                 msg = "End date should be greater than start date."
-#                 self._errors["end_time"] = self.error_class([msg])
-
-
-# class CategoryForm(forms.ModelForm):
-
-#     class Meta:
-#         model = Category
-#         fields = '__all__'
