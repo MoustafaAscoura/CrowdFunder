@@ -78,10 +78,24 @@ def edit_project(request, id):
     }
     return render(request, 'projects/create/edit.html', context)
 
-class CategoryView(generic.TemplateView):
+class CategoryView(generic.ListView):
     template_name = 'projects/project_list.html'
+    model = Project
+    context_object_name = 'projects'
     def get_queryset(self):
         name = self.kwargs.get('category')
-        projects = Project.objects.filter(category=name)
-        self.extra_context={'mode':'category'}
+        projects = self.model.objects.filter(category=name)
+        print(name,projects)
+        self.extra_context={'category':name}
+        return projects
+
+class TagView(generic.ListView):
+    model = Project
+    template_name = 'projects/project_list.html'
+    context_object_name = 'projects'
+    def get_queryset(self):
+        tag = self.kwargs.get('tag')
+        projects = Project.objects.filter(tags__contains=[tag])
+        print(tag,projects)
+        self.extra_context={'tag':tag}
         return projects

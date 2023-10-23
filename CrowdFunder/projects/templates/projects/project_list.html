@@ -4,7 +4,21 @@
 <br>
 
     <div class="container">
-        <a class="btn btn-primary w-100" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add Project</a>
+
+        {% if category %}
+            <h2>Your are viewing all projects in {{category}} Category</h2>
+        {% elif tag %}
+            <h2>Your are viewing all projects with {{tag}} Tag</h2>
+        {% elif search %}
+            <h2>Search results for: {{search}}</h2>
+        {% else %}
+            {% if user.id %}
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary w-50 mx-auto" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add Project</a>
+            </div>
+            {%endif%}
+            <h2>Explore all current projects</h2>
+        {%endif%}
 
         {% for project in projects %}
         <div class="card mb-3">
@@ -14,6 +28,13 @@
                 <p class="card-text">Start Time : {{ project.start_time }}</p>
                 <p class="card-text">End Time: {{ project.end_time }}</p>
                 <p class="card-text">Project Owner: {{ project.user }}</p>
+                <p class="card-text">Category: <a class="badge bg-warning text-dark" href="{% url 'category' category=project.category%}">{{ project.category }}</a></p>
+                <p class="card-text">Tags: {% for tag in project.tags %}
+                    <a class="badge bg-info text-dark" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
+                {%endfor%}
+                </p>
+                
+
                 <!-- Display other project details as needed -->
                 <a class="btn bg-primary text-white" href="{% url 'project_detail' id=project.id %}">Show Details</a>
                 <a class="btn bg-warning text-white" href="{% url 'edit_project' id=project.id %}">Edit Project</a>

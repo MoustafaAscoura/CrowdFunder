@@ -16,8 +16,11 @@ def about(request):
 
 class SearchView(generic.ListView):
     template_name = 'projects/project_list.html'
+    model = Project
+    context_object_name = 'projects'
+
     def get_queryset(self):
         param = self.request.GET.get('param')
         projects = Project.objects.filter(title__icontains=param)
-        self.extra_context={'mode':'search'}
+        self.extra_context={'search':param}
         return projects

@@ -69,7 +69,8 @@ User: A new app
 	- The user can create a project fund raise campaign which contains: 
 		- Title 
 		- Details 
-		- Category (from list of categories added previously by admins) - Multiple pictures 
+		- Category (from list of categories added previously by admins) 
+		- Multiple pictures 
 		- Total target (i.e 250000 EGP) 
 		- Multiple Tags 
 		- Set start/end time for the campaign 
