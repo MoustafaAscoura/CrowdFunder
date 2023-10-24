@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<br>
+
+    <div class="container mt-2 mb-5">
+       
+        {% for report in reports %}
+
+        <div>{{report}}</div>
+
+        {% endfor %}
+     </div>
+    
+{% endblock %}
