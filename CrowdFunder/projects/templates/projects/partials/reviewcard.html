@@ -1,0 +1,10 @@
+<div class="review-card row m-1">
+    <div class="col-4 text-center">
+        <img style="width: 70px;" src="{{review.user.get_profile_picture}}" alt="">
+        <h5>{{review.user.fullname}}</h5>
+    </div>
+    <div class="col-8">
+        <p>{{review.review}}</p>
+        <p class="text-muted"><i class="fa-regular fa-clock me-2"></i>{{review.created_at.date}}</p>
+    </div>
+</div>

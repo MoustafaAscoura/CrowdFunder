@@ -115,16 +115,13 @@
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   >
                   <div class="accordion-body">
-                    <div class="row pt-1">
-                      <div class="col-6 mb-3">
-                        <h6>Recent</h6>
-                        <p class="text-muted">Lorem ipsum</p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Most Viewed</h6>
-                        <p class="text-muted">Dolor sit amet</p>
-                      </div>
-                    </div>
+                    {%if user.donations.all %}
+                      {%for donation in user.donations.all%}
+                          {% include "projects/partials/donationcard.html" with donation=donation %}
+                      {%endfor%}
+                    {%else%}
+                        <h3>This user has currently no donations!</h3>    
+                    {%endif%}
                   </div>
 
                 </div>
@@ -141,7 +138,13 @@
                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                   >
                   <div class="accordion-body">
-                    Text Here
+                    {%if user.reviews.all %}
+                      {%for review in user.reviews.all%}
+                          {% include "projects/partials/reviewcard.html" with review=review %}
+                      {%endfor%}
+                    {%else%}
+                        <h3>This user has currently no reviews!</h3>    
+                    {%endif%}
                   </div>
 
                 </div>

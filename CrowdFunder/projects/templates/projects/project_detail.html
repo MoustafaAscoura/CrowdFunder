@@ -2,15 +2,14 @@
 
 {% block content %}
 
-<div class="container my-2 bg-light p-3 rounded">
-    <div class="row gx-3">
-        <div class="col-8">
-            <div class="card bg-dark text-white">
+<div class="container my-2  p-3 rounded">
+    <div class="row gx-3 bg-light my-3"  style="box-shadow: 0 0 5px;">
+        <div class="col-12 col-lg-8 my-auto">
+            <div class="card">
                 <img src="{{project.thumbnail}}" class="card-img" alt="thumbnail" style="object-fit: cover;">
-
             </div>
         </div>
-        <div class="col-4 p-3 position-relative">
+        <div class="col-12 col-lg-4 p-3 position-relative">
             {%if user == project.user %}
             <div class="control position-absolute" style="right: 20px; top: 65px;">
                 <a class="btn btn-outline-dark" href="{% url 'edit_project' id=project.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -88,7 +87,40 @@
 
         </div>
     </div>
-
+    <div class="row gx-3">
+        <div class="col-12 col-lg-6 p-2">
+            <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
+                <a href="{% url 'create_comment' id=project.id %}" class="btn btn-outline-info float-end">Add Comment</a>
+                <h2>Comments</h2>
+                <div class="comments">
+                    <hr>
+                    {%if project.comments.all %}
+                        {%for review in project.comments.all%}
+                            {% include "projects/partials/commentcard.html" with comment=comment %}
+                        {%endfor%}
+                    {%else%}
+                        <h3>There are currently no comments!</h3>
+                    {%endif%}
+                </div>
+            </div>   
+        </div>
+        <div class="col-12 col-lg-6 p-2">
+            <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
+                <a href="{% url 'create_review' id=project.id %}" class="float-end btn btn-outline-info">Add Review</a>
+                <h2>Reviews</h2>
+                <div class="reviews">
+                    <hr>
+                    {%if project.reviews.all %}
+                        {%for review in project.reviews.all%}
+                            {% include "projects/partials/reviewcard.html" with review=review %}
+                        {%endfor%}
+                    {%else%}
+                        <h3>There are currently no reviews!</h3>    
+                    {%endif%}
+                </div>
+            </div>   
+        </div>
+    </div>
 </div>
 
 {% endblock %}

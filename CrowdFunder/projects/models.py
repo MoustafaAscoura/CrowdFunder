@@ -61,8 +61,6 @@ class Project(models.Model):
             else:
                 rates_list.append(1)
         
-        print('aaaaaaa',rates_list,rate)
-
         return rates_list
 
 class Donation(models.Model):

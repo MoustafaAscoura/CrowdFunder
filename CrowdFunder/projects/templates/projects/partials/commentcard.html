@@ -1,0 +1,10 @@
+<div class="review-card row m-1">
+    <div class="col-4 text-center">
+        <img style="width: 70px;" src="{{comment.user.get_profile_picture}}" alt="">
+        <h5>{{comment.user.fullname}}</h5>
+    </div>
+    <div class="col-8">
+        <p>{{comment.content}}</p>
+        <p class="text-muted"><i class="fa-regular fa-clock me-2"></i>{{comment.created_at.date}}</p>
+    </div>
+</div>
