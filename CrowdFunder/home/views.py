@@ -6,7 +6,9 @@ from django.views import generic
 from projects.models import Project
 
 def index(request):
-    return render(request, 'home/home.html')
+    projects = Project.objects.all()
+    print(projects)
+    return render(request, 'home/home.html', {'projects': projects})
 
 def contact(request):
     return render(request, 'home/contact.html')

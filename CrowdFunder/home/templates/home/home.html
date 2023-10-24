@@ -81,71 +81,42 @@
   <br> 
   <br> 
   <br>
-  
+
+
+
+ 
   <h1 class="text-center">Our Latest 6 Projects</h1>
 
 
-  <div class="row row-cols-2 row-cols-md-3 g-6">
+     <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% if projects %}
+
+    {% for project in projects %}
+    
+  <div class="container">
     <div class="col">
       <div class="card">
         <img src="{% static 'home/images/images5.jpeg' %}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Project Garden</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <h5 class="card-title">{{ project.title }}</h5>
+          <p class="card-text">{{project.details}}.</p>
+          <p class="card-text">Total Target : <b> {{project.total_target}} </b>  </p>
         </div>
       </div>
       <br> 
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="{% static 'home/images/images5.jpeg' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Horses Race</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-      <br> 
-    </div>
-    <div class="col">
-        <div class="card">
-          <img src="{% static 'home/images/images5.jpeg' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Plants</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <br> 
-      <div class="col">
-        <div class="card">
-          <img src="{% static 'home/images/images5.jpeg' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <br> 
-    <div class="col">
-      <div class="card">
-        <img src="{% static 'home/images/images5.jpeg' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-    </div>
-    <br> 
-    <div class="col">
-      <div class="card">
-        <img src="{% static 'home/images/images5.jpeg' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
     </div>
   </div>
+
+{% endfor %}
+{% else %}
+<p>No projects found.</p>
+{% endif %}
+
+</div>
+{% comment %} ------------------------------------------------------------------ {% endcomment %}
+
+{% comment %} - List of latest 5 featured projects (which are selected by the admin) 
+- A list of the categories. User can open each category to view its projects {% endcomment %}
 
 
 
