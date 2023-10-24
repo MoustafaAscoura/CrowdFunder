@@ -22,6 +22,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 my-2 overflow-hidden">
         {% for project in projects %}
         <div class="col">
+            <h1>{{project.id}}</h1>
             <div class="card position-relative mx-1" style="height: 60vh;">
                 {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
             </div>
