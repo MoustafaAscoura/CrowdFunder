@@ -11,4 +11,5 @@ urlpatterns = [
     path('edit/<int:id>', edit_project, name='edit_project'),
     path('category/<str:category>' , CategoryView.as_view() , name='category'),
     path('tags/<str:tag>' , TagView.as_view() , name='tag'),
+    path('donate/<int:id>', edit_project, name='donate'),
 ]

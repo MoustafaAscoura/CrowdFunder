@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 
-    <div class="container">
+    <div class="container mt-2 mb-5">
         {% if category %}
             <h2>Your are viewing all projects in {{category}} Category</h2>
         {% elif tag %}
@@ -23,7 +23,7 @@
         {% for project in projects %}
         <div class="col">
             <div class="card position-relative mx-1" style="height: 60vh;">
-                {% include "projects/partials/projectinfo.html" with project=project %}
+                {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
             </div>
         </div>
 

@@ -1,8 +1,8 @@
 <a class="position-absolute m-2 badge bg-warning text-dark text-decoration-none" href="{%url 'category' category=project.category%}">{{project.category}}</a>
-<img src="{{project.thumbnail}}" class="card-img-top img-fluid h-50" alt="thumbnail">
-<div class="card-body">
-    <h3><a class="text-dark text-decoration-none" href="{% url 'project_detail' id=project.id %}">{{project.title}}</a></h3>
-    <p class="card-text">{{project.details}}</p>
+<a href="{% url 'project_detail' id=project.id %}" class="h-50"><img src="{{project.thumbnail}}" class="card-img-top img-fluid h-100" alt="thumbnail"></a>
+<div class="card-body p-4">
+    <h3 style="text-overflow: ellipsis;" class="text-nowrap overflow-hidden"><a class="text-dark text-decoration-none" href="{% url 'project_detail' id=project.id %}">{{project.title}}</a></h3>
+    <p class="card-text text-nowrap overflow-hidden" style="text-overflow: ellipsis;">{{project.details}}</p>
   <h6>Raised $ {{project.raised_money}} / {{project.total_target}}</h6>
   <div class="position-absolute ">
     {%if project.expired %}
@@ -14,5 +14,13 @@
         <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
     {%endfor%}
     <p class="text-muted">{{project.created_at.date}}</p>
+    {% if inlist %}
+    <a type="button" class="btn btn-outline-dark" href="{% url 'profile' pk=project.user.id %}">
+      <img src="{{project.user.get_profile_picture}}" 
+      onerror="this.onerror=null;this.src='/media/account/images/annon.png';" 
+      alt="Avatar" class="img-fluid rounded-circle me-2" style="width: 25px;" />
+      {% if project.user.first_name %}{{project.user.first_name}}{%else%}{{project.user}}{%endif%}
+    </a>
+    {%endif%}
   </div>
 </div>
