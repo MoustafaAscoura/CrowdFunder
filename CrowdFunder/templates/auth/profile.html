@@ -34,8 +34,8 @@
         <div class="col-12 col-md-8">
           <div class="accordion card-body p-4">
 
-            <!-- Personal Info -->
             <div class="accordion" id="accordionExample">
+              <!-- Personal Info -->
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
@@ -86,41 +86,20 @@
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                   >
                   <div class="accordion-body">
-                    <div class="list-group list-group-horizontal position-relative overflow-auto">
-                      <div class="list-group-item">
-                        <div class="card" style="width: 18rem;">
-                          <img src="..." class="card-img-top" alt="...">
-                          <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    {% if profileuser.projects %}
+                      <div class="list-group list-group-horizontal position-relative overflow-auto">
+                        {%for project in profileuser.projects.all%}
+                        <div class="list-group-item border-0">
+                          <div class="card position-relative h-100" style="width: 18rem;">
+                            {% include "projects/partials/projectinfo.html" with project=project %}
                           </div>
                         </div>
+                        {%endfor%}
                       </div>
-                      <div class="list-group-item">
-                        <div class="card" style="width: 18rem;">
-                          <img src="..." class="card-img-top" alt="...">
-                          <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-group-item">
-                        <div class="card" style="width: 18rem;">
-                          <img src="..." class="card-img-top" alt="...">
-                          <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-group-item">
-                        <div class="card" style="width: 18rem;">
-                          <img src="..." class="card-img-top" alt="...">
-                          <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
+                    {%else%}
+                        <h4 class="d-flex m-0 align-items-center justify-content-center">You have no projects!<a class="m-0 ms-5 btn btn-primary" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Create One Now!</a>
+                        </h4>
+                    {%endif%}
                   </div>
                 </div>
               </div>

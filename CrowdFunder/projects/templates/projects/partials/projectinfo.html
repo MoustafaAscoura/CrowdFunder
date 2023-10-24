@@ -1,0 +1,18 @@
+<a class="position-absolute m-2 badge bg-warning text-dark text-decoration-none" href="{%url 'category' category=project.category%}">{{project.category}}</a>
+<img src="{{project.thumbnail}}" class="card-img-top img-fluid h-50" alt="thumbnail">
+<div class="card-body">
+    <h3><a class="text-dark text-decoration-none" href="{% url 'project_detail' id=project.id %}">{{project.title}}</a></h3>
+    <p class="card-text">{{project.details}}</p>
+  <h6>Raised $ {{project.raised_money}} / {{project.total_target}}</h6>
+  <div class="position-absolute ">
+    {%if project.expired %}
+      <span class="badge bg-warning text-light">Expired</span>
+    {% else %}
+      <span class="badge bg-success text-light">Active</span>
+    {%endif%}
+    {% for tag in project.tags %}
+        <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
+    {%endfor%}
+    <p class="text-muted">{{project.created_at.date}}</p>
+  </div>
+</div>

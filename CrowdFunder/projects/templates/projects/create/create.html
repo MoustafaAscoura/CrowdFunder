@@ -4,12 +4,6 @@
 
 {% block content %}
 <style>
-    /* Increase the size of the form fields */
-    .form-control {
-        height: 50px;
-        font-size: 18px;
-    }
-
     /* Move the submit button above the footer */
     .submit-button {
         margin-top: 8px;
@@ -116,15 +110,16 @@
     display: none;
 }
 </style>
-
+<div class="container py-5">
 <h2 style="text-align: center">Add Project</h2>
-<div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 100vh;">
-    <form id="project-create" method="POST" enctype="multipart/form-data">
+<div class="d-flex justify-content-center bg-light" style="min-height: 100vh;min-width: 500px;">
+    <form id="project-create" class="w-75 py-5" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary text-white mr-3 submit-button">Add Project</button>
+        <button type="submit" class="btn btn-primary text-white submit-button">Add Project</button>
     </form>
     
+</div>
 </div>
 <br>
 {% endblock %}

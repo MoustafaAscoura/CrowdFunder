@@ -35,6 +35,8 @@ class CreateProject(generic.CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        # if len(form.changed_data.get('photos')):
+        #     self.object.photos 
         self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)
@@ -85,7 +87,6 @@ class CategoryView(generic.ListView):
     def get_queryset(self):
         name = self.kwargs.get('category')
         projects = self.model.objects.filter(category=name)
-        print(name,projects)
         self.extra_context={'category':name}
         return projects
 
@@ -96,6 +97,5 @@ class TagView(generic.ListView):
     def get_queryset(self):
         tag = self.kwargs.get('tag')
         projects = Project.objects.filter(tags__contains=[tag])
-        print(tag,projects)
         self.extra_context={'tag':tag}
         return projects

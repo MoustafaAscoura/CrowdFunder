@@ -4,7 +4,6 @@
 <br>
 
     <div class="container">
-
         {% if category %}
             <h2>Your are viewing all projects in {{category}} Category</h2>
         {% elif tag %}
@@ -20,45 +19,15 @@
             <h2>Explore all current projects</h2>
         {%endif%}
 
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 my-2 overflow-hidden">
         {% for project in projects %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h2 class="card-title">{{ project.title }}</h2>
-                <p class="card-text">Total Target: {{ project.total_target }}</p>
-                <p class="card-text">Start Time : {{ project.start_time }}</p>
-                <p class="card-text">End Time: {{ project.end_time }}</p>
-                <p class="card-text">Project Owner: {{ project.user }}</p>
-                <p class="card-text">Category: <a class="badge bg-warning text-dark" href="{% url 'category' category=project.category%}">{{ project.category }}</a></p>
-                <p class="card-text">Tags: {% for tag in project.tags %}
-                    <a class="badge bg-info text-dark" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
-                {%endfor%}
-                </p>
-                
-
-                <!-- Display other project details as needed -->
-                <a class="btn bg-primary text-white" href="{% url 'project_detail' id=project.id %}">Show Details</a>
-                <a class="btn bg-warning text-white" href="{% url 'edit_project' id=project.id %}">Edit Project</a>
-                <a class="btn bg-danger text-white" href="{% url 'project_delete' id=project.id %}">Delete Project</a>
-
-                <form>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <select class="form-select" id="rating" name="rating">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="comment" class="form-label">Comment</label>
-                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+        <div class="col">
+            <div class="card position-relative mx-1" style="height: 60vh;">
+                {% include "projects/partials/projectinfo.html" with project=project %}
             </div>
         </div>
+
         {% endfor %}
+        </div>
     </div>
 {% endblock %}

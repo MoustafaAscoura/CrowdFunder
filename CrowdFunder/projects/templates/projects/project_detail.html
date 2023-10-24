@@ -13,6 +13,11 @@
             <p class="card-text">Category: {{ project.category }}</p>
             <p class="card-text">Created At: {{ project.created_at }}</p> 
             <p class="card-text">Project Owner: {{ project.user }}</p>
+            <!-- Display other project details as needed -->
+            <a class="btn bg-primary text-white" href="{% url 'project_detail' id=project.id %}">Show Details</a>
+            <a class="btn bg-warning text-white" href="{% url 'edit_project' id=project.id %}">Edit Project</a>
+            <a class="btn bg-danger text-white" href="{% url 'project_delete' id=project.id %}">Delete Project</a>
+            
         </div>
     </div>
 
