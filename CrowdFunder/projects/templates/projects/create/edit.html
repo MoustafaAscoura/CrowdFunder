@@ -4,26 +4,122 @@
 
 {% block content %}
 <style>
-    /* Increase the size of the form fields */
-    .form-control {
-        height: 50px;
-        font-size: 18px;
-    }
-
     /* Move the submit button above the footer */
     .submit-button {
         margin-top: 8px;
     }
+    .tag-input.padding-for-clear {
+        padding-right: 48px;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-flow: row wrap;
+        -webkit-box-pack: start;
+        justify-content: flex-start;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        padding: 0 2px;
+        cursor: text;
+        position: relative;
+        height: auto;
+        min-height: 36px;
+    }
+    .tag-input {
+        position: relative;
+        border: 1px #d9d9d9 solid;
+        color: #1d1d1d;
+        width: 100%;
+        font-size: 16px;
+        height: 36px;
+        line-height: 36px;
+        background: #ffffff none;
+        background-clip: padding-box;
+        min-width: 0;
+    }
+    .tag-input .original-input {
+        width: 1px;
+        height: 1px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+    .tag-input input{
+        -webkit-appearance: none;
+        appearance: none;
+        display: block;
+        outline: none;
+        width: 100%;
+        min-width: 0;
+    }
+    .tag {
+        display: -webkit-inline-box;
+        display: inline-flex;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: start;
+        align-items: flex-start;
+        position: relative;
+        margin: 2px;
+        padding: 0;
+        height: 26px;
+        line-height: 26px;
+        background-color: #f8f8f8;
+        cursor: default;
+    }
+    .tag-input .input-wrapper {
+    width: auto;
+    border: none!important;
+    height: 26px;
+    line-height: 26px;
+    font-size: 14px;
+    padding: 0 4px;
+}
+.tag .title {
+    display: block;
+    position: relative;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0 8px;
+}
+.tag .remover {
+    display: block;
+    position: relative;
+    width: 26px;
+    height: 100%;
+    line-height: 22px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #e4e4e4;
+    font-size: 1.2rem;
+}
+.tag-input .input-clear-button:hover {
+    background-color: #f8f8f8;
+    text-shadow: rgba(0, 0, 0, 0.25) 0.1em 0.1em 0.2em;
+}
+.tag-input:focus .input-clear-button, .tag-input.focused .input-clear-button {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    visibility: visible;
+}
+.input-clear-button{
+    display: none;
+}
 </style>
-
-<h2 style="text-align: center">Edit Project</h2>
-<div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 100vh;">
-    <form method="POST" enctype="multipart/form-data">
+<div class="container py-5">
+<h2 style="text-align: center">Add Project</h2>
+<div class="d-flex justify-content-center bg-light" style="min-height: 100vh;min-width: 500px;">
+    <form id="project-create" class="w-75 py-5" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary text-white mr-3 submit-button">Edit Project</button>
+        <button type="submit" class="btn btn-primary text-white submit-button">Add Project</button>
     </form>
     
+</div>
 </div>
 <br>
 {% endblock %}
