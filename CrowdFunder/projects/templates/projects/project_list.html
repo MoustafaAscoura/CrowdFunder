@@ -1,6 +1,26 @@
 {% extends "home/base.html" %}
 
+
+
 {% block content %}
+<style>
+    .float{
+        position:fixed;
+        width:60px;
+        height:60px;
+        bottom:40px;
+        right:40px;
+        background-color:#0C9;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        box-shadow: 2px 2px 3px #999;
+    }
+    
+    .my-float{
+        margin-top:22px;
+    }
+</style>
 <br>
 
     <div class="container mt-2 mb-5">
@@ -13,7 +33,10 @@
         {% else %}
             {% if user.id %}
             <div class="d-flex justify-content-center">
-                <a class="btn btn-primary w-50 mx-auto" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add Project</a>
+                <a href="{% url 'project_create' %}" class="float">
+                    <i class="fa fa-plus my-float"></i>
+                </a>
+                <!-- <a class="btn btn-primary w-50 mx-auto" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add Project</a> -->
             </div>
             {%endif%}
             <h2>Explore all current projects</h2>
