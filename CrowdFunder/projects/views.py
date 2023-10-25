@@ -36,7 +36,7 @@ class CreateProject(generic.CreateView):
     model = Project
     form_class = ProjectForm
     success_url = reverse_lazy('project_list')
-    template_name='projects/create/create.html'
+    template_name='projects/project_form.html'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -49,11 +49,12 @@ class CreateProject(generic.CreateView):
 class EditProjectView(LoginRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectForm
-    template_name = 'projects/create/edit.html'
+    template_name='projects/project_form.html'
     success_url = '/project_list/'
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
+        self.extra_context={'edit':True}
         if obj.user != self.request.user:
             raise PermissionDenied("You are not authorized to edit this project.")
         return obj

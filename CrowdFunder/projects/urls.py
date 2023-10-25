@@ -8,7 +8,6 @@ urlpatterns = [
     path('<int:id>/delete', delete, name='project_delete'),
     path('create', login_required(CreateProject.as_view()), name='project_create'),
     path('<int:pk>/edit/', EditProjectView.as_view(), name='edit_project'),
-    # path('<int:id>/edit', edit_project, name='edit_project'),
     path('category/<str:category>' , CategoryView.as_view() , name='category'),
     path('tags/<str:tag>' , TagView.as_view() , name='tag'),
     path('<int:id>/donate',EditProjectView.as_view() , name='donate'),

@@ -35,8 +35,8 @@
               <i class="fa-solid fa-gear"></i>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'userprojects' %}">Your Projects</a></li>
-              <li><a class="dropdown-item" href="{% url 'userdonations' %}">Your Donations</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' pk=user.id%}#projects">Your Projects</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' pk=user.id%}#donations">Your Donations</a></li>
               <li><a class="dropdown-item" href="{% url 'editprofile' %}">Edit Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>

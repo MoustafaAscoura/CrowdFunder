@@ -111,14 +111,13 @@
 }
 </style>
 <div class="container py-5">
-<h2 style="text-align: center">Edit Project</h2>
+<h2 style="text-align: center">{%if edit %}Edit Project{%else%}Add Project{%endif%}</h2>
 <div class="d-flex justify-content-center bg-light" style="min-height: 100vh;min-width: 500px;">
-    <form id="project-create" class="w-75 py-5" method="POST" enctype="multipart/form-data">
+    <form class="w-75 py-5" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary text-white submit-button">Sava</button>
+        <button type="submit" class="btn btn-primary text-white submit-button">{%if edit %}Save Changes{%else%}Add Project{%endif%}</button>
     </form>
-    
 </div>
 </div>
 <br>
