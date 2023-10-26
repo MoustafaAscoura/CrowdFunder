@@ -10,20 +10,20 @@
     {% else %}
       <span class="badge bg-success text-light">Active</span>
     {%endif%}
-    {% comment %} {%if project.tags%}
-      {% for tag in project.tags_array %}
+    {%if project.tags%}
+      {% comment %} {% for tag in project.tags_array %} {% endcomment %}
+      {% for tag in project.tags %}
         {% if tag %}
           <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a>
         {% endif %}
 
-        {% comment %} <!--- <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a> --> {% endcomment %}
  
-
+{% comment %} 
     {% for tag in project.tags_array %}
       {% if tag %}
         <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a>
       {% endif %}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
 
     <p class="text-muted">{{project.created_at.date}}</p>
     {% if inlist %}
