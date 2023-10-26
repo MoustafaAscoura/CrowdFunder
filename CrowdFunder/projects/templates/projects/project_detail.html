@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -60,9 +61,14 @@
                     aria-valuemax="{{project.total_target}}">{%if project.percentage > 25%}Raised
                     ${{project.raised_money}}{%endif%}</div>
             </div>
-            <div class="card-text d-flex justify-content-around my-5">
-                <a href="{% url 'donate' id=project.id %}" class="btn btn-success fs-4">Donate Now</a>
-            </div>
+            <form method="POST" class="input-group mb-3 mt-4" action="{% url 'project_donate' id=project.id %}" id="dform" role="donate" >
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Amount" name="donate">
+                <button class="btn btn-outline-secondary"  type="submit" id="donate">Add</button>
+              </form>
+                 
+            <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
+            
 
             <hr>
             <div class="card-text">
@@ -147,5 +153,18 @@
         </div>
     </div>
 </div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+    $(document).ready(function(){
+            $("#dform").hide();
+            $("#donate_now").click(function(event){
+                console.log("click");
+                $("#dform").toggle();
+                
+            })
+        })
+          
+    </script>
 
 {% endblock %}
+

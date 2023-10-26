@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render ,get_object_or_404,redirect
-from . models import Project, Photo
+from . models import Project, Photo , Donation
 from . forms import ProjectFileForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -30,6 +30,21 @@ def delete(request, id):
         return redirect('project_list')
     else:
         return HttpResponse("Sorry, project not found")   
+    
+@login_required
+def donate(request , id):
+    project = Project.objects.get(id=id)
+    if request.method == "POST":
+        print(request.POST['donate'])
+        # donation = Donation
+        # donation.amount = request.POST['donate']
+        # donation.project = id
+        # donation.user = request.user
+        donation = Donation.objects.create(amount=request.POST['donate'] , user=request.user , project=project)
+
+
+    return render(request, 'projects/project_detail.html', {'project': project})
+
 
 class CreateProject(generic.CreateView):
     model = Project

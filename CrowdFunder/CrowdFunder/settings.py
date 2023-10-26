@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django_countries', #add countries field to model
     'crispy_forms',
     'crispy_bootstrap5',
+    'jquery',
 ]
 
 MIDDLEWARE = [

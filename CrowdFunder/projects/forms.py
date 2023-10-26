@@ -65,3 +65,4 @@ class ProjectForm(forms.ModelForm):
 
 class ProjectFileForm(ProjectForm):
     file = MultipleFileField(widget=MultipleFileInput(attrs={'multiple': True}),required=False)
+

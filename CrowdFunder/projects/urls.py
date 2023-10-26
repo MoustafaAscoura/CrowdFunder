@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
-from projects.views import project_detail, project_list, CreateProject,EditProjectView,delete, CategoryView, TagView
+from projects.views import project_detail, project_list, CreateProject,EditProjectView,delete, CategoryView, TagView , donate
 
 urlpatterns = [
     path('', project_list, name='project_list'),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('category/<str:category>' , CategoryView.as_view() , name='category'),
     path('tags/<str:tag>' , TagView.as_view() , name='tag'),
     path('<int:id>/donate',EditProjectView.as_view() , name='donate'),
+    path('<int:id>/donate-test',donate,name='project_donate'),
 ]
