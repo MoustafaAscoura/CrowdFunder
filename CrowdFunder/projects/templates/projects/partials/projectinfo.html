@@ -12,7 +12,11 @@
     {%endif%}
     {%if project.tags%}
       {% for tag in project.tags_array %}
-          <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
+        {% if tag %}
+          <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a>
+        {% endif %}
+
+        {% comment %} <!--- <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a> --> {% endcomment %}
       {%endfor%}
     {%endif%}
     <p class="text-muted">{{project.created_at.date}}</p>
