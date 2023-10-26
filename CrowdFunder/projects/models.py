@@ -12,7 +12,7 @@ class Project(models.Model):
     end_time = models.DateField(default=timezone.now)
     category = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='projects')
-    tags = ArrayField(models.CharField(max_length=64),blank=True,default=list)
+    tags = models.CharField(max_length=64,blank=True,default="")
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -23,6 +23,10 @@ class Project(models.Model):
     def featured_projects(self):
         return []
 
+    @property
+    def tags_array(self):
+        return self.tags.strip("{}").split(',')
+    
     @property
     def all_photos(self):
         return [x.photo.url for x in self.photos.all()]

@@ -41,8 +41,6 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'details': forms.Textarea(attrs={'rows': '5'}),
         }
-    def clean_tags(self):
-        return self.cleaned_data.get('tags').split(',')
 
     def clean(self):
         start_time = self.cleaned_data.get('start_time')

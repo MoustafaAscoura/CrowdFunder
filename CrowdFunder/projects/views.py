@@ -55,6 +55,15 @@ class EditProjectView(LoginRequiredMixin, UpdateView):
     template_name='projects/project_form.html'
     success_url = reverse_lazy('project_list')
 
+
+    def form_valid(self, form):       
+        files = self.request.FILES.getlist('file')
+        if files:
+            for f in files:
+                Photo.objects.create(project=self.object,photo=f)
+
+        return super().form_valid(form)
+    
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         self.extra_context={'edit':True}

@@ -10,9 +10,11 @@
     {% else %}
       <span class="badge bg-success text-light">Active</span>
     {%endif%}
-    {% for tag in project.tags %}
-        <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
-    {%endfor%}
+    {%if project.tags%}
+      {% for tag in project.tags_array %}
+          <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
+      {%endfor%}
+    {%endif%}
     <p class="text-muted">{{project.created_at.date}}</p>
     {% if inlist %}
     <a type="button" class="btn btn-outline-dark" href="{% url 'profile' pk=project.user.id %}">
