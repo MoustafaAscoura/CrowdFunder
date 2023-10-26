@@ -1,9 +1,10 @@
 from datetime import datetime
 from typing import Any
 from django import forms
-from .models import Project
+from .models import Project, Photo
 from django.forms import ClearableFileInput, FileField 
 from django.core.validators import validate_image_file_extension
+from django.core.exceptions import ValidationError
 
 class MultipleFileInput(ClearableFileInput):
     allow_multiple_selected = True
@@ -26,6 +27,7 @@ class ProjectForm(forms.ModelForm):
     categories = (('Social','Social'),('Humanitarian', 'Humanitarian'),
                   ('Health', 'Health'),('Education','Education'),
                   ('Political','Political')) 
+
     category = forms.ChoiceField(choices=categories)
     start_time = forms.DateTimeField(initial=datetime.now().date(),widget=forms.NumberInput(attrs={'type':'date'}),required=False)
     end_time = forms.DateTimeField(initial=datetime.now().date(),widget=forms.NumberInput(attrs={'type':'date'}),required=False)
@@ -54,3 +56,15 @@ class ProjectForm(forms.ModelForm):
             msg = "End date should be greater than start date."
             self._errors["end_time"] = self.error_class([msg])
 
+    def clean_title(self):
+        title = self.cleaned_data.get("title")
+        if Project.objects.filter(title=title).exists():
+            self._update_errors(ValidationError({"title": "A project with this title already exists"}))
+
+        return title
+
+class ProjectFileForm(ProjectForm):
+    file = MultipleFileField(widget=MultipleFileInput(attrs={'multiple': True}),required=False)
+
+    # class Meta(ProjectForm.Meta):
+    #     fields = ProjectForm.Meta.fields + ['file',]

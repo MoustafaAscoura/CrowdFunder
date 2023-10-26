@@ -12,7 +12,6 @@ class Project(models.Model):
     end_time = models.DateField(default=timezone.now)
     category = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='projects')
-    photo = models.ImageField(upload_to="projects/images/%Y/%m/%d/%H/%M/%S/", null=True, blank=True)
     tags = ArrayField(models.CharField(max_length=64),blank=True,default=list)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -20,9 +19,21 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
+    @classmethod
+    def featured_projects(self):
+        return []
+
+    @property
+    def all_photos(self):
+        return [x.photo.url for x in self.photos.all()]
+    
     @property
     def thumbnail(self):
-        return self.photo.url if self.photo else "/media/projects/images/project.jpg"
+        print(self.all_photos)
+        try:
+            return self.all_photos[0]
+        except:
+            return "/media/projects/images/project.jpg"
     
     @property
     def raised_money(self):
@@ -72,3 +83,6 @@ class Donation(models.Model):
     def __str__(self):
         return str(self.amount)
 
+class Photo(models.Model):
+    photo = models.ImageField(upload_to="projects/images/%Y/%m/%d/%H/%M/%S/", null=True, blank=True)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE, related_name='photos')

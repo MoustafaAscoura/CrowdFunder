@@ -6,15 +6,11 @@
 <style>
     .float{
         position:fixed;
-        width:60px;
-        height:60px;
         bottom:40px;
         right:40px;
-        background-color:#0C9;
-        color:#FFF;
-        border-radius:50px;
         text-align:center;
         box-shadow: 2px 2px 3px #999;
+        z-index: 5;
     }
     
     .my-float{
@@ -31,13 +27,10 @@
         {% elif search %}
             <h2>Search results for: {{search}}</h2>
         {% else %}
-            {% if user.id %}
-            <div class="d-flex justify-content-center">
-                <a href="{% url 'project_create' %}" class="float">
-                    <i class="fa fa-plus my-float"></i>
+            {% if user %}
+                <a href="{% url 'project_create' %}" class="float p-3 fs-5 rounded-pill bg-info text-decoration-none text-light">
+                    <i class="fa fa-plus"></i> Add a new project
                 </a>
-                <!-- <a class="btn btn-primary w-50 mx-auto" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add Project</a> -->
-            </div>
             {%endif%}
             <h2>Explore all current projects</h2>
         {%endif%}
