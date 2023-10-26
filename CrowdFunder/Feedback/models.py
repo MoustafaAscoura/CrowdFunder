@@ -17,6 +17,20 @@ class Review(models.Model):
     user =models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviews')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def rates(self): #This transforms the rates number to list of 0,0.5,1 to convert it later to stars
+        rates_list = []
+        rate = self.rate
+
+        for i in range(1,6):
+            if i - rate >= 1:
+                rates_list.append(0)
+            elif i - rate > 0.2:
+                rates_list.append(0.5)
+            else:
+                rates_list.append(1)
+        
+        return rates_list
 
 class Report(models.Model):
     reason=models.CharField(max_length=500)
