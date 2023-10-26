@@ -1,10 +1,14 @@
-<div class="review-card row m-1">
-    <div class="col-4 text-center">
-        <img style="width: 70px;" src="{{review.user.get_profile_picture}}" alt="">
-        <h5>{{review.user.fullname}}</h5>
-    </div>
-    <div class="col-8">
-        <p>{{review.review}}</p>
-        <p class="text-muted"><i class="fa-regular fa-clock me-2"></i>{{review.created_at.date}}</p>
+<div class="review-card row m-1 border border-muted border-2 rounded p-3">  
+    <div class="col-4 text-center d-flex flex-column align-items-center justify-content-center">
+        <a href="{% url 'profile' pk=review.user.id %}" class="text-decoration-none">
+            <img style="width: 50px;" src="{{review.user.get_profile_picture}}" alt="">
+            <h6 class="m-0  text-dark">@{{review.user}}</h6>
+        </a>
+    </div>  
+    <div class="col-8 d-flex flex-column justify-content-between h-100">
+        {% include "projects/partials/starrating.html" with rates=review.rates %}
+        <p class="mb-2 pe-2 text-justify" style="text-align: justify;">{{review.review}}</p>
+        <p class="text-muted m-0"><i class="fa-regular fa-clock me-2"></i>{{review.created_at.date}}</p>
     </div>
 </div>
+

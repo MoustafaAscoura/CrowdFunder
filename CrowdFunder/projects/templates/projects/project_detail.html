@@ -5,39 +5,42 @@
 
 <div class="container my-2  p-3 rounded">
     <div class="row gx-3 bg-light my-3"  style="box-shadow: 0 0 5px;">
-        <div class="col-12 col-lg-8 my-auto">
-            {% comment %} <div class="card">
-                <img src="{{project.thumbnail}}" class="card-img" alt="thumbnail" style="object-fit: cover;">
-            </div>  {% endcomment %}
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="width: 500px; height: 300px;">
-                <ol class="carousel-indicators">
-                    {% for photo in project.all_photos %}
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner">
-                    {% for photo in project.all_photos %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ photo }}" class="d-block w-100" alt="project photo" style="width: 500px; height: 300px; object-fit: cover;">
-                    </div>
-                    {% endfor %}
+        <div class="col-12 col-lg-8 my-auto p-2 rounded">
+            {% if project.all_photos|length > 1 %} 
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% for photo in project.all_photos %}
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                        {% endfor %}
+                    </ol>
+                    <div class="carousel-inner">
+                        {% for photo in project.all_photos %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ photo }}" class="d-block w-100" alt="project photo" style="object-fit: cover;">
+                        </div>
+                        {% endfor %}
+                    </div> 
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
                 </div> 
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </a>
-            </div> 
+            {% else %}
+                <div class="card">
+                    <img src="{{project.thumbnail}}" class="card-img" alt="thumbnail" style="object-fit: cover;">
+                </div>  
+            {%endif%}
             
         </div>
         <div class="col-12 col-lg-4 p-3 position-relative">
             {%if user == project.user %}
             <div class="control position-absolute" style="right: 20px; top: 65px;">
                 <a class="btn btn-outline-dark" href="{% url 'edit_project' pk=project.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
-                <a class="btn btn-outline-danger" href="{% url 'project_delete' id=project.id %}"><i class="fa-solid fa-x"></i></a>    
+                <a class="btn btn-outline-danger" href="{% url 'project_delete' pk=project.id %}"><i class="fa-solid fa-x"></i></a>    
             </div>
             {%endif%}
             <h1 class="card-title fw-bold">{{project.title}}</h1>
@@ -55,12 +58,8 @@
                 <p>{{ project.details}}</p>
             </div>
 
-            <div class="card-text progress" style="height: 25px;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated fs-6" role="progressbar"
-                    aria-valuenow="{{project.raised_money}}" aria-valuemin="0" style="width:{{project.percentage}}%"
-                    aria-valuemax="{{project.total_target}}">{%if project.percentage > 25%}Raised
-                    ${{project.raised_money}}{%endif%}</div>
-            </div>
+            {% include "projects/partials/progressbar.html" with project=project %}
+
             <form method="POST" class="input-group mb-3 mt-4" action="{% url 'project_donate' id=project.id %}" id="dform" role="donate" >
                 {% csrf_token %}
                 <input type="text" class="form-control" placeholder="Amount" name="donate">
@@ -68,7 +67,6 @@
               </form>
                  
             <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
-            
 
             <hr>
             <div class="card-text">
@@ -77,12 +75,18 @@
                     <tr>
                         <td>Tags:</td>
                         <td  align="center">
-                            {% for tag in project.tags_array %}
+                            {% comment %} {% for tag in project.tags_array %} {% endcomment %}
+                            {% for tag in project.tags %}
                                 <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
                             {%endfor%}
                         </td>
                     </tr>
                     {%endif%}
+                    {% comment %} {% for tag in project.tags_array %}
+                      {% if tag %}
+                        <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a>
+                    {% endif %}
+                    {% endfor %} {% endcomment %}
                     <tr>
                         <td>Category:</td>
                         <td  align="center"> 
@@ -93,23 +97,13 @@
                     <tr>
                         <td>Reviews</td>
                         <td align="center">
-                            <div class="rate">
-                            {% for i in project.rates %}
-                                {% if i == 0.5 %}
-                                    <i class="fa-solid fa-star-half-stroke"></i>
-                                {%elif i  == 0%}
-                                    <i class="fa-regular fa-star"></i>
-                                {%else%}
-                                    <i class="fa-solid fa-star"></i>
-                                {%endif%}
-                            {%endfor%}
-                            </div>
+                            <span class="text-muted position-absolute" style="right: 30px;">({{project.reviews.all|length}})</span>{% include "projects/partials/starrating.html" with rates=project.rates %}
                         </td>
                     </tr>
                     {% if user != project.user %}
                     <tr >
                         <td colspan="2" align="center">
-                            <a class="btn btn-outline-danger mt-3 w-50" href="{% url 'report' id=project.id %}">Report</a>
+                            <a class="btn btn-outline-danger mt-3 w-50" href="{% url 'report' pk=project.id %}?type=project">Report</a>
                         </td>
                     </tr>
                     {%endif%}
@@ -121,12 +115,12 @@
     <div class="row gx-3">
         <div class="col-12 col-lg-6 p-2">
             <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
-                <a href="{% url 'create_comment' id=project.id %}" class="btn btn-outline-info float-end">Add Comment</a>
+                <a href="{% url 'create_comment' pk=project.id %}" class="btn btn-outline-info float-end">Add Comment</a>
                 <h2>Comments</h2>
                 <div class="comments">
                     <hr>
                     {%if project.comments.all %}
-                        {%for review in project.comments.all%}
+                        {%for comment in project.comments.all%}
                             {% include "projects/partials/commentcard.html" with comment=comment %}
                         {%endfor%}
                     {%else%}
@@ -137,7 +131,7 @@
         </div>
         <div class="col-12 col-lg-6 p-2">
             <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
-                <a href="{% url 'create_review' id=project.id %}" class="float-end btn btn-outline-info">Add Review</a>
+                <a href="{% url 'create_review' pk=project.id %}" class="float-end btn btn-outline-info">Add Review</a>
                 <h2>Reviews</h2>
                 <div class="reviews">
                     <hr>

@@ -33,7 +33,6 @@ class Project(models.Model):
     
     @property
     def thumbnail(self):
-        print(self.all_photos)
         try:
             return self.all_photos[0]
         except:
@@ -49,8 +48,7 @@ class Project(models.Model):
     
     @property   
     def percentage(self):
-        return 50
-        return self.raised_money // self.total_target
+        return 100 * float(self.raised_money) // float(self.total_target)
     
     @property
     def remaining_time(self):
@@ -64,7 +62,7 @@ class Project(models.Model):
         return 0
     
     @property
-    def rates(self):
+    def rates(self): #This transforms the rates number to list of 0,0.5,1 to convert it later to stars
         rates_list = []
         rate = self.rate
 

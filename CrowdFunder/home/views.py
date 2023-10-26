@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
 from projects.models import Project
+from django.db.models import Q
 
 def index(request):
     projects = Project.objects.all()
@@ -23,6 +24,8 @@ class SearchView(generic.ListView):
 
     def get_queryset(self):
         param = self.request.GET.get('param')
-        projects = Project.objects.filter(title__icontains=param)
-        self.extra_context={'search':param}
+        projects = Project.objects.filter(
+            Q(title_icontains=param) | Q(tags_icontains=param)
+        )
+        self.extra_context = {'search': param}
         return projects

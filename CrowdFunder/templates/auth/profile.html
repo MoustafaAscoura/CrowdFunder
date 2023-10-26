@@ -86,7 +86,7 @@
                 <div id="projects" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                   >
                   <div class="accordion-body">
-                    {% if profileuser.projects %}
+                    {% if profileuser.projects.all %}
                       <div class="list-group list-group-horizontal position-relative overflow-auto" style="height: 55vh;">
                         {%for project in profileuser.projects.all%}
                         <div class="list-group-item border-0">
@@ -123,7 +123,6 @@
                         <h3>This user has currently no donations!</h3>    
                     {%endif%}
                   </div>
-
                 </div>
               </div>
 
