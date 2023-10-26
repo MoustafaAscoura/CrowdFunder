@@ -13,10 +13,11 @@
     {%if project.tags%}
       {% comment %} {% for tag in project.tags_array %} {% endcomment %}
       {% for tag in project.tags %}
-        {% if tag %}
+        
           <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a>
-        {% endif %}
-
+     
+    {% endfor %}
+    {% endif %}
  
 {% comment %} 
     {% for tag in project.tags_array %}

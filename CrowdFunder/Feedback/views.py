@@ -1,7 +1,8 @@
-from django.shortcuts import  render
+from django.shortcuts import  render, redirect
 from django.urls import reverse_lazy
-from .forms import ReportForm
-from .models import Report
+from .forms import ReportForm, ReviewForm
+from .models import Report, Review
+from projects.models import Project
 from django.views import generic
 
 
@@ -20,12 +21,26 @@ class ReportProject(generic.CreateView):
     
 
 
+def report_project(request, id):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            project = Project.objects.get(id=id)
+            review.project = project
+            review.user = request.user
+            review.save()
+            return redirect('project_detail', id=id)
+    else:
+        form = ReviewForm()
+    return render(request, 'feedback/create_review.html', {'form': form})
+
+    
 
 
-def report_project(request):
-    pass
 
-
+# def report_project(request):
+#     pass
 
 # @login_required
 # def rate_project(request, id):
