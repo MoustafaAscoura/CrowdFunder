@@ -5,9 +5,32 @@
 <div class="container my-2  p-3 rounded">
     <div class="row gx-3 bg-light my-3"  style="box-shadow: 0 0 5px;">
         <div class="col-12 col-lg-8 my-auto">
-            <div class="card">
+            {% comment %} <div class="card">
                 <img src="{{project.thumbnail}}" class="card-img" alt="thumbnail" style="object-fit: cover;">
-            </div>
+            </div>  {% endcomment %}
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="width: 500px; height: 300px;">
+                <ol class="carousel-indicators">
+                    {% for photo in project.all_photos %}
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for photo in project.all_photos %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ photo }}" class="d-block w-100" alt="project photo" style="width: 500px; height: 300px; object-fit: cover;">
+                    </div>
+                    {% endfor %}
+                </div> 
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div> 
+            
         </div>
         <div class="col-12 col-lg-4 p-3 position-relative">
             {%if user == project.user %}
