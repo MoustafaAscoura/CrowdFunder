@@ -15,13 +15,13 @@ def project_list(request):
     projects = Project.objects.all()
     return render(request, 'projects/project_list.html', {'projects': projects})
 
-def project_detail(request, id):
-    project = get_object_or_404(Project, id=id)
+def project_detail(request, pk):
+    project = get_object_or_404(Project, id=pk)
     return render(request, 'projects/project_detail.html', {'project': project})
 
 @login_required
-def delete(request, id):
-    project = get_object_or_404(Project, id=id)
+def delete(request, pk):
+    project = get_object_or_404(Project, id=pk)
     
     if project.user != request.user:
         return HttpResponse("You are not authorized to delete this project.")
@@ -87,6 +87,6 @@ class TagView(generic.ListView):
     context_object_name = 'projects'
     def get_queryset(self):
         tag = self.kwargs.get('tag')
-        projects = Project.objects.filter(tags__contains=[tag])
+        projects = Project.objects.filter(tags__icontains=tag)
         self.extra_context={'tag':tag}
         return projects
