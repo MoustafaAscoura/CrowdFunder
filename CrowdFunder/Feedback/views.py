@@ -21,16 +21,16 @@ class ReportProject(generic.CreateView):
     
 
 
-def report_project(request, id):
+def report_project(request, pk):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            project = Project.objects.get(id=id)
+            project = Project.objects.get(id=pk)
             review.project = project
             review.user = request.user
             review.save()
-            return redirect('project_detail', id=id)
+            return redirect('project_detail', id=pk)
     else:
         form = ReviewForm()
     return render(request, 'feedback/create_review.html', {'form': form})

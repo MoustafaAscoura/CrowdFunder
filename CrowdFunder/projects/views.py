@@ -32,8 +32,8 @@ def delete(request, pk):
         return HttpResponse("Sorry, project not found")   
     
 @login_required
-def donate(request , id):
-    project = Project.objects.get(id=id)
+def donate(request , pk):
+    project = Project.objects.get(id=pk)
     if request.method == "POST":
         print(request.POST['donate'])
         # donation = Donation

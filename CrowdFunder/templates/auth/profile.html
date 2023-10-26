@@ -114,9 +114,9 @@
                 </h2>
                 <div id="donations" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   >
-                  <div class="accordion-body">
-                    {%if user.donations.all %}
-                      {%for donation in user.donations.all%}
+                  <div class="accordion-body" style="max-height: 70vh;overflow: auto;">
+                    {%if profileuser.donations.all %}
+                      {%for donation in profileuser.donations.all%}
                           {% include "projects/partials/donationcard.html" with donation=donation %}
                       {%endfor%}
                     {%else%}
@@ -136,9 +136,9 @@
                 </h2>
                 <div id="reviews" class="accordion-collapse collapse" aria-labelledby="headingFour"
                   >
-                  <div class="accordion-body">
-                    {%if user.reviews.all %}
-                      {%for review in user.reviews.all%}
+                  <div class="accordion-body" style="max-height: 70vh;overflow: auto;">
+                    {%if profileuser.reviews.all %}
+                      {%for review in profileuser.reviews.all%}
                           {% include "projects/partials/reviewcard.html" with review=review %}
                       {%endfor%}
                     {%else%}

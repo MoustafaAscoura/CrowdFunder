@@ -10,5 +10,5 @@ urlpatterns = [
     path('<int:pk>/edit/', EditProjectView.as_view(), name='edit_project'),
     path('category/<str:category>' , CategoryView.as_view() , name='category'),
     path('tags/<str:tag>' , TagView.as_view() , name='tag'),
-    path('<int:pk>/donate',EditProjectView.as_view() , name='donate'),
+    path('<int:pk>/donate',donate , name='donate'),
 ]

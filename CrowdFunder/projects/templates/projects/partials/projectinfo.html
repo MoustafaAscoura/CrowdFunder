@@ -42,9 +42,8 @@
       <p class="text-muted">{{project.created_at.date}}</p>
     </div>
     <div class="col-6 ps-3 pe-0">
-      <span class="text-muted float-end">({{project.reviews.all|length}})</span
-      >{% include "projects/partials/starrating.html" with rates=project.rates
-      %}
+      <span class="text-muted float-end">({{project.reviews.all|length}})</span>
+      {% include "projects/partials/starrating.html" with rates=project.rates%}
     </div>
   </div>
   {% if inlist %}
@@ -60,8 +59,7 @@
       class="img-fluid rounded-circle me-2"
       style="width: 25px"
     />
-    {% if project.user.first_name
-    %}{{project.user.first_name}}{%else%}{{project.user}}{%endif%}
+    {% if project.user.first_name%}{{project.user.first_name}}{%else%}{{project.user}}{%endif%}
   </a>
   <a
     href="{% url 'donate' pk=project.id %}"

@@ -60,13 +60,14 @@
 
             {% include "projects/partials/progressbar.html" with project=project %}
 
-            <form method="POST" class="input-group mb-3 mt-4" action="{% url 'project_donate' id=project.id %}" id="dform" role="donate" >
+            <form method="POST" class="input-group mb-3 mt-4" hidden action="{% url 'donate' pk=project.id %}" id="dform" role="donate" >
                 {% csrf_token %}
                 <input type="text" class="form-control" placeholder="Amount" name="donate">
                 <button class="btn btn-outline-secondary"  type="submit" id="donate">Add</button>
-              </form>
-                 
-            <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
+            </form>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
+            </div>
 
             <hr>
             <div class="card-text">
@@ -75,18 +76,12 @@
                     <tr>
                         <td>Tags:</td>
                         <td  align="center">
-                            {% comment %} {% for tag in project.tags_array %} {% endcomment %}
-                            {% for tag in project.tags %}
+                            {% for tag in project.tags_array %}
                                 <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
                             {%endfor%}
                         </td>
                     </tr>
                     {%endif%}
-                    {% comment %} {% for tag in project.tags_array %}
-                      {% if tag %}
-                        <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag %}">{{ tag }}</a>
-                    {% endif %}
-                    {% endfor %} {% endcomment %}
                     <tr>
                         <td>Category:</td>
                         <td  align="center"> 
@@ -150,11 +145,9 @@
 <script src="{% static 'js/jquery.js' %}"></script>
 <script>
     $(document).ready(function(){
-            $("#dform").hide();
             $("#donate_now").click(function(event){
-                console.log("click");
-                $("#dform").toggle();
-                
+                $("#dform").attr("hidden", false)
+                $("#donate_now").hide()
             })
         })
           
