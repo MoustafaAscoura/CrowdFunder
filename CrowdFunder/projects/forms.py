@@ -45,26 +45,25 @@ class ProjectForm(forms.ModelForm):
         return self.cleaned_data.get('tags').split(',')
 
     def clean(self):
-        start_date = self.cleaned_data.get('start_time')
-        end_date = self.cleaned_data.get('end_time')
+        start_time = self.cleaned_data.get('start_time')
+        end_time = self.cleaned_data.get('end_time')
 
-        if datetime.now().date() > start_date.date():
-            msg = "Start date shouldn't be less than today."
-            self._errors["start_time"] = self.error_class([msg])
+        if datetime.now().date() > start_time.date():
+            if not (self.instance.id and self.instance.start_time == start_time.date()):
+                msg = "Start date shouldn't be less than today."
+                self._errors["start_time"] = self.error_class([msg])
         
-        if end_date <= start_date:
+        if end_time <= start_time:
             msg = "End date should be greater than start date."
             self._errors["end_time"] = self.error_class([msg])
 
     def clean_title(self):
         title = self.cleaned_data.get("title")
-        if Project.objects.filter(title=title).exists():
-            self._update_errors(ValidationError({"title": "A project with this title already exists"}))
+        if Project.objects.filter(title__icontains=title).exists():
+            if not (self.instance.id and self.instance.title == title):
+                self._update_errors(ValidationError({"title": "A project with this title already exists"}))
 
         return title
 
 class ProjectFileForm(ProjectForm):
     file = MultipleFileField(widget=MultipleFileInput(attrs={'multiple': True}),required=False)
-
-    # class Meta(ProjectForm.Meta):
-    #     fields = ProjectForm.Meta.fields + ['file',]

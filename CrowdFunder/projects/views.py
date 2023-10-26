@@ -46,8 +46,8 @@ class CreateProject(generic.CreateView):
         if files:
             for f in files:
                 Photo.objects.create(project=self.object,photo=f)
-        return super().form_valid(form)
 
+        return super().form_valid(form)
 
 class EditProjectView(LoginRequiredMixin, UpdateView):
     model = Project
