@@ -1,7 +1,7 @@
 from django.shortcuts import  render, redirect
 from django.urls import reverse_lazy
 from .forms import ReportForm, ReviewForm, CommentForm
-from .models import Report, Review
+from .models import Report, Review, Comment
 from projects.models import Project
 from django.views import generic
 
@@ -18,10 +18,25 @@ class ReportProject(generic.CreateView):
     success_url = reverse_lazy('report_list')
     template_name='reports/create.html'
 
-    
 
 
-def report_project(request, pk):
+def report_comment(request, comment_id):
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            comment = Comment.objects.get(pk=comment_id)
+            report = form.save(commit=False)
+            report.comment = comment
+            report.user = request.user
+            report.save()
+            return redirect('project_detail', pk=comment.project.id)
+    else:
+        form = ReportForm()
+    return render(request, 'feedback/report_comment.html', {'form': form})
+
+
+
+def create_review(request, pk):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -51,10 +66,25 @@ def create_comment( request , pk ):
     return render(request, 'feedback/create_comment' , { 'form' : form } )
 
 
-
-# def report_project(request):
-#     pass
-
 # @login_required
 # def rate_project(request, id):
 #     project = get_object_or_404(Project, id=id)
+
+# def create_report(request, comment_pk):
+#       if request.method == 'POST':
+#         form = ReportForm(request.POST)
+#         if form.is_valid():
+#                 reason = form.save(commit=False)
+#                 comment = Comment.objects.get(pk=comment_pk)
+#                 reason.comment = comment
+#                 reason.user = request.user
+#                 reason.project = comment.project
+#                 reason.save()
+#                 return redirect('project_detail', pk=comment.project.pk )
+#       else:
+#            form = CommentForm()
+#       return render(request, 'reports/create.html' , { 'form' : form } )
+
+
+
+ 

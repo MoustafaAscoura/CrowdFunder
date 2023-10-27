@@ -32,7 +32,7 @@
       <span class="badge bg-warning text-light">Expired</span>
       {% else %}
       <span class="badge bg-success text-light">Active</span>
-      {%endif%} {%if project.tags%} {% for tag in project.tags%}
+      {%endif%} {%if project.tags%} {% for tag in project.tags_array%}
       <a
         class="badge bg-info text-dark text-decoration-none"
         href="{% url 'tag' tag=tag%}"
