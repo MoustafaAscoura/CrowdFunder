@@ -105,3 +105,8 @@ class TagView(generic.ListView):
         projects = Project.objects.filter(tags__icontains=tag)
         self.extra_context={'tag':tag}
         return projects
+    
+
+def similar(request):
+
+   pass
