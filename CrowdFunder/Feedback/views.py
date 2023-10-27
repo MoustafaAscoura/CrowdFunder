@@ -1,6 +1,6 @@
 from django.shortcuts import  render, redirect
 from django.urls import reverse_lazy
-from .forms import ReportForm, ReviewForm
+from .forms import ReportForm, ReviewForm, CommentForm
 from .models import Report, Review
 from projects.models import Project
 from django.views import generic
@@ -36,7 +36,6 @@ def report_project(request, pk):
     return render(request, 'feedback/create_review.html', {'form': form})
 
     
-
 
 
 # def report_project(request):
