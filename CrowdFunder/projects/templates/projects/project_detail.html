@@ -76,7 +76,7 @@
                     <tr>
                         <td>Tags:</td>
                         <td  align="center">
-                            {% for tag in project.tags_array %}
+                            {% for tag in project.tags %}
                                 <a class="badge bg-info text-dark text-decoration-none" href="{% url 'tag' tag=tag%}">{{ tag }}</a>
                             {%endfor%}
                         </td>
