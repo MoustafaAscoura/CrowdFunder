@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='report',
             name='project',
-            field=models.ForeignKey(blank=True, default='', on_delete=django.db.models.deletion.CASCADE, related_name='reports', to='projects.project'),
+            field=models.ForeignKey(blank=True, null=True,default='', on_delete=django.db.models.deletion.CASCADE, related_name='reports', to='projects.project'),
             preserve_default=False,
         ),
     ]

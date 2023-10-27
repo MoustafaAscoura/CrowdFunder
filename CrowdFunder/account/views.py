@@ -77,7 +77,6 @@ class EditAccount(generic.UpdateView):
         return self.request.user
     model = User
     form_class = FullUserForm
-    success_url = reverse_lazy('index')
     template_name='registration/edit.html'
 
     def form_valid(self, form):
@@ -93,7 +92,7 @@ class EditAccount(generic.UpdateView):
             
         user.picture = picture
         user.save()
-        return redirect(self.success_url)
+        return redirect(reverse_lazy('profile', kwargs={'pk': self.object.id}))
         
 class DeleteAccount(generic.DeleteView):
     def get_object(self):

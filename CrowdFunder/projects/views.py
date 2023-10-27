@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseBadRequest,HttpResponseNotFound
 from django.shortcuts import render ,get_object_or_404,redirect
 from . models import Project, Photo , Donation
 from . forms import ProjectFileForm
@@ -18,7 +18,8 @@ def project_list(request):
 def project_detail(request, pk):
     project = get_object_or_404(Project, id=pk)
 
-    similars = Project.objects.filter(category=project.category).exclude(id=pk)[:4]
+    # similars = Project.objects.filter(category=project.category).exclude(id=pk)[:4]
+    similars = Project.objects.all().exclude(id=pk)[:4]
     return render(request, 'projects/project_detail.html', {'project': project, 'similars': similars})
 
 @login_required
@@ -31,22 +32,18 @@ def delete(request, pk):
         project.delete()
         return redirect('project_list')
     else:
-        return HttpResponse("Sorry, project not found")   
+        return HttpResponseNotFound("Sorry, project not found")   
     
 @login_required
-def donate(request , pk):
+def donate(request, pk):
     project = Project.objects.get(id=pk)
     if request.method == "POST":
-        print(request.POST['donate'])
-        # donation = Donation
-        # donation.amount = request.POST['donate']
-        # donation.project = id
-        # donation.user = request.user
-        donation = Donation.objects.create(amount=request.POST['donate'] , user=request.user , project=project)
+        if float(request.POST['donate']) > 0:
+            donation = Donation.objects.create(amount=request.POST['donate'] , user=request.user , project=project)
+        else:
+            HttpResponseBadRequest("Donation Amount is invalid")
 
-
-    return render(request, 'projects/project_detail.html', {'project': project})
-
+    return redirect(reverse_lazy('project_detail', kwargs={'pk': pk}))
 
 class CreateProject(generic.CreateView):
     model = Project

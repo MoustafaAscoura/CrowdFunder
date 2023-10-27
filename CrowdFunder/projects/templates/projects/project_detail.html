@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container my-2  p-3 rounded">
-    <div class="row gx-3 bg-light my-3"  style="box-shadow: 0 0 5px;">
+    <div class="row gx-3 bg-light my-3" style="box-shadow: 0 0 5px;">
         <div class="col-12 col-lg-8 my-auto p-2 rounded">
             {% if project.all_photos|length > 1 %} 
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -62,7 +62,7 @@
 
             <form method="POST" class="input-group mb-3 mt-4" hidden action="{% url 'donate' pk=project.id %}" id="dform" role="donate" >
                 {% csrf_token %}
-                <input type="text" class="form-control" placeholder="Amount" name="donate">
+                <input type="number" class="form-control" min="0" placeholder="Amount" name="donate">
                 <button class="btn btn-outline-secondary"  type="submit" id="donate">Add</button>
             </form>
             <div class="d-flex justify-content-center">
@@ -113,8 +113,9 @@
 
         </div>
     </div>
+
     <div class="row gx-3">
-        <div class="col-12 col-lg-6 p-2">
+        <div class="col-12 col-lg-6 p-0 my-3">
             <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
                 <a href="{% url 'create_comment' pk=project.id %}" class="btn btn-outline-info float-end">Add Comment</a>
                 <h2>Comments</h2>
@@ -130,7 +131,7 @@
                 </div>
             </div>   
         </div>
-        <div class="col-12 col-lg-6 p-2">
+        <div class="col-12 col-lg-6 p-0 ps-md-2 my-3">
             <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
                 <a href="{% url 'create_review' pk=project.id %}" class="float-end btn btn-outline-info">Add Review</a>
                 <h2>Reviews</h2>
@@ -146,25 +147,25 @@
                 </div>
             </div>   
         </div> 
-        <div>
-            <div class="list-group list-group-horizontal position-relative overflow-auto" style="height: 55vh;">
-                {% if similars %}
-                {% for project in similars %}
-                <div class="list-group-item border-0">
-                    <div class="card position-relative h-100" style="width: 18rem;">
-                      {% include "projects/partials/projectinfo.html" with project=project %}
-                    </div>
-                  </div>
-              {% endfor %}    
+    </div>
 
-              {% else %}
-               
-                <h3 style="margin: 30px 450px ;">There are no Similar project</h3> 
-               </div> 
-               {% endif %}
-            
-          </div>
-        </div>
+    <div class="row bg-light rounded p-3" style="box-shadow: 0 0 5px;">
+        <h2>Similar Projects</h2>
+        {% if similars %}
+        <div class="list-group list-group-horizontal overflow-auto" style="height: 56vh;">
+            {% for project in similars %}
+            <div class="list-group-item border-0">
+                <div class="card h-100" style="min-width: 20rem;">
+                  {% include "projects/partials/projectinfo.html" with project=project %}
+                </div>
+              </div>
+            {% endfor %}     
+        {% else %}
+            <h3 style="margin: 30px 450px ;">There are no Similar project</h3> 
+           </div> 
+        {% endif %}
+        
+      </div>
     </div>
    
 </div>

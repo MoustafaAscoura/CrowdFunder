@@ -41,7 +41,7 @@
       {%endfor%} {%endif%}
       <p class="text-muted">{{project.created_at.date}}</p>
     </div>
-    <div class="col-6 ps-3 pe-0">
+    <div class="col-6 ps-3 pe-0" style="font-size: smaller;">
       <span class="text-muted float-end">({{project.reviews.all|length}})</span>
       {% include "projects/partials/starrating.html" with rates=project.rates%}
     </div>

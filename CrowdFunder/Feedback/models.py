@@ -35,7 +35,7 @@ class Review(models.Model):
 class Report(models.Model):
     reason=models.CharField(max_length=500)
     status=models.CharField(max_length=5)
-    project = models.ForeignKey(Project,on_delete=models.CASCADE, related_name='reports', blank=True)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE, related_name='reports', null=True)
     comment = models.ForeignKey(Comment,on_delete=models.CASCADE, related_name='reports')
     user =models.ForeignKey(User,on_delete=models.CASCADE, related_name='reports')
     created_at = models.DateTimeField(auto_now_add=True)

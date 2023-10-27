@@ -5,11 +5,10 @@ from .models import Report, Review, Comment
 from projects.models import Project
 from django.views import generic
 
-
-
-def report_list(request):
-    reports = Report.objects.all()
-    return render(request, 'reports/reports_list.html', {'reports': reports})
+class Reports(generic.ListView):
+    model = Report
+    context_object_name = 'reports'
+    template_name = 'reports/reports_list.html'
 
 
 class ReportProject(generic.CreateView):
@@ -35,8 +34,6 @@ def report_comment(request, comment_id, pk):
         form = ReportForm()
     return render(request, 'reports/report_comment.html', {'form': form})
 
-
-
 def create_review(request, pk):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -51,7 +48,6 @@ def create_review(request, pk):
         form = ReviewForm()
     return render(request, 'feedback/create_review.html', {'form': form})
 
-    
 def create_comment( request , pk ):
     if request.method == 'POST':
         form = CommentForm(request.POST)
