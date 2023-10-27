@@ -66,7 +66,13 @@
                 <button class="btn btn-outline-secondary"  type="submit" id="donate">Add</button>
             </form>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
+                
+                {% if project.raised_money >=  project.total_target %}
+                    <button class="btn btn-success m-3" disabled id="donate_now">Donate Now</button>
+                {% else %}
+                    <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
+                {% endif %}
+                
             </div>
 
             <hr>
