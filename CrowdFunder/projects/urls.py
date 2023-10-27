@@ -11,5 +11,5 @@ urlpatterns = [
     path('category/<str:category>' , CategoryView.as_view() , name='category'),
     path('tags/<str:tag>' , TagView.as_view() , name='tag'),
     path('<int:pk>/donate',donate , name='donate'),
-     path('<int:pk>/' , similar , name='similar'),
+    path('<int:pk>/' , similar , name='similar'),
 ]

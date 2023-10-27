@@ -142,20 +142,20 @@
         </div> 
         <div>
             <div class="list-group list-group-horizontal position-relative overflow-auto" style="height: 55vh;">
-                {%if similars %}
-                {%for project in similars%}
+                {% if similars %}
+                {% for project in similars %}
                 <div class="list-group-item border-0">
                     <div class="card position-relative h-100" style="width: 18rem;">
                       {% include "projects/partials/projectinfo.html" with project=project %}
                     </div>
                   </div>
-              {%endfor%}    
+              {% endfor %}    
 
-              {%else%}
+              {% else %}
                
                 <h3 style="margin: 30px 450px ;">There are no Similar project</h3> 
                </div> 
-               {%endif%}
+               {% endif %}
             
           </div>
         </div>

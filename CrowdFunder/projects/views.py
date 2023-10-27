@@ -109,4 +109,5 @@ class TagView(generic.ListView):
 
 def similar(request):
 
-   pass
+    similars = Project.objects.all()
+    return render(request, 'projects/project_detail.html', {'similars': similars})
