@@ -19,20 +19,21 @@ class ReportProject(generic.CreateView):
     template_name='reports/create.html'
 
 
-
-def report_comment(request, comment_id):
+def report_comment(request, comment_id, pk):
     if request.method == 'POST':
         form = ReportForm(request.POST)
         if form.is_valid():
-            comment = Comment.objects.get(pk=comment_id)
+            comment = Comment.objects.get(id=comment_id)
+            project = Project.objects.get(id=pk)
             report = form.save(commit=False)
             report.comment = comment
+            report.project = project
             report.user = request.user
             report.save()
-            return redirect('project_detail', pk=comment.project.id)
+            return redirect('project_detail', pk=pk )
     else:
         form = ReportForm()
-    return render(request, 'feedback/report_comment.html', {'form': form})
+    return render(request, 'reports/report_comment.html', {'form': form})
 
 
 

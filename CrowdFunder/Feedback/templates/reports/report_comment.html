@@ -1,36 +1,4 @@
-{% extends 'home/base.html' %}
-
-{% block content %}
-<div class="container py-5">
-    <h2 style="text-align: center">Report Comment</h2>
-    <div class="d-flex justify-content-center bg-light" style="min-height: 100vh; min-width: 500px;">
-        <form id="report-comment" class="w-75 py-5" method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-danger submit-button">Report Comment</button>
-        </form>
-    </div>
-</div>
-<br>
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} {% extends 'home/base.html' %}
+ {% extends 'home/base.html' %}
 
 {% load crispy_forms_tags %}
 
@@ -56,5 +24,3 @@
 <br>
 {% endblock %}
 
-
- {% endcomment %}
