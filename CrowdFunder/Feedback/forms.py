@@ -14,11 +14,11 @@ class ReviewForm(forms.ModelForm):
 
 
 
-class CommentForm(forms.Modelform):
+class CommentForm(forms.ModelForm):
 
 	class Meta:
 		model = Comment
-		fields = ['content'  ,  'created_at' ]
+		fields = ['content']
 
 
 

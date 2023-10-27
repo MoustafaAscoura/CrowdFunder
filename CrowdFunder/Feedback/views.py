@@ -30,7 +30,7 @@ def report_project(request, pk):
             review.project = project
             review.user = request.user
             review.save()
-            return redirect('project_detail', id=pk)
+            return redirect('project_detail', pk=pk)
     else:
         form = ReviewForm()
     return render(request, 'feedback/create_review.html', {'form': form})
@@ -45,7 +45,7 @@ def create_comment( request , pk ):
                 comment.project = project
                 comment.user = request.user
                 comment.save()
-                return redirect('project_detail', id=pk )
+                return redirect('project_detail', pk=pk )
     else:
            form = CommentForm()
     return render(request, 'feedback/create_comment' , { 'form' : form } )

@@ -1,0 +1,30 @@
+
+
+
+
+{% extends 'home/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+<div class="container py-5">
+    <h2 style="text-align: center">Your Comment</h2>
+    <div class="d-flex justify-content-center bg-light" style="min-height: 100vh;min-width: 500px;">
+        <form id="project-create" class="w-75 py-5" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary text-white submit-button">Add Comment</button>
+        </form>
+        
+    </div>
+    </div>
+    <br>
+    {% endblock %}
+    
+
+
+
+
