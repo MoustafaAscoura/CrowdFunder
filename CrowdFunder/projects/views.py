@@ -17,7 +17,9 @@ def project_list(request):
 
 def project_detail(request, pk):
     project = get_object_or_404(Project, id=pk)
-    return render(request, 'projects/project_detail.html', {'project': project})
+
+    similars = Project.objects.filter(category=project.category).exclude(id=pk)[:4]
+    return render(request, 'projects/project_detail.html', {'project': project, 'similars': similars})
 
 @login_required
 def delete(request, pk):
@@ -106,8 +108,3 @@ class TagView(generic.ListView):
         self.extra_context={'tag':tag}
         return projects
     
-
-def similar(request):
-
-    similars = Project.objects.all()
-    return render(request, 'projects/project_detail.html', {'similars': similars})
