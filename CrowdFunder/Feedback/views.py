@@ -36,6 +36,20 @@ def report_project(request, pk):
     return render(request, 'feedback/create_review.html', {'form': form})
 
     
+def create_comment( request , pk ):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+                comment = form.save(commit=False)
+                project = Project.objects.get(id=pk)
+                comment.project = project
+                comment.user = request.user
+                comment.save()
+                return redirect('project_detail', id=pk )
+    else:
+           form = CommentForm()
+    return render(request, 'feedback/create_comment' , { 'form' : form } )
+
 
 
 # def report_project(request):
