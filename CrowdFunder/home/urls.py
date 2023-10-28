@@ -6,5 +6,5 @@ urlpatterns = [
     path("contact", contact, name="contact"),
     path("about", about, name="about"),
     path("search", SearchView.as_view(), name="search"),
-    path("category/<str:category_name>/", category_view, name="category"),
+    # path("category/<str:category_name>/", category_view, name="category"),
 ]
