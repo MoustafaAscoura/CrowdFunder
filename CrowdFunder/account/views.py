@@ -75,6 +75,7 @@ def Logout(request):
 class EditAccount(generic.UpdateView):
     def get_object(self):
         return self.request.user
+    
     model = User
     form_class = FullUserForm
     template_name='registration/edit.html'

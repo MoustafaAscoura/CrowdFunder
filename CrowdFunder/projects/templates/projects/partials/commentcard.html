@@ -1,19 +1,72 @@
-<div class="review-card row m-1 border border-muted border-2 rounded p-3">  
-    <div class="col-4 text-center d-flex flex-column align-items-center justify-content-center">
-        <a href="{% url 'profile' pk=comment.user.id %}" class="text-decoration-none">
-            <img style="width: 50px;" src="{{comment.user.get_profile_picture}}" alt="">
-            <h6 class="m-0  text-dark">@{{comment.user}}</h6>
-        </a>
-    </div>  
-    <div class="col-8">
-        <a class="btn btn-outline-danger float-end" 
-        href="{% url 'report_comment' comment_id=comment.id pk=project.pk %}?type=comment" style="margin: -10px -20px 0 0;">
-        <i class="fa-regular fa-flag"></i> 
-    </a>    
-        <div class="d-flex flex-column justify-content-between h-100">
-            <p class="mb-2 pe-2 text-justify" style="text-align: justify;">{{comment.content}}</p>
-            <p class="text-muted m-0"><i class="fa-regular fa-clock me-2"></i>{{comment.created_at.date}}</p>
+<div class="comment-card border border-muted border-2 rounded mb-2">
+    <div class="row m-1  p-3 ps-1">  
+        <div class="col-3 text-center d-flex align-items-center ps-4">
+            <a href="{% url 'profile' pk=comment.user.id %}" class="text-decoration-none">
+                <img style="width: 50px;" src="{{comment.user.get_profile_picture}}" alt="">
+                <h6 class="m-0  text-dark">@{{comment.user}}</h6>
+            </a>
+        </div>  
+        <div class="col-9">
+            <a class="btn btn-outline-danger float-end" 
+            href="{% url 'report_comment' comment_id=comment.id pk=project.pk %}?type=comment" style="margin: -10px -20px 0 0;">
+            <i class="fa-regular fa-flag"></i> 
+            </a>  
+            <button class="btn btn-outline-primary float-end reply" comment_id="{{comment.id}}" style="margin: 40px -40px 0 0;">
+                <i class="fa-solid fa-reply"></i>  
+            </button>
+            <div class="d-flex flex-column justify-content-between h-100">
+                <p class="mb-2 pe-2 text-justify" style="text-align: justify;">{{comment.content}}</p>
+                <p class="text-muted m-0"><i class="fa-regular fa-clock me-2"></i>{{comment.created_at.date}}</p>
+            </div>
+        </div>
+    </div>
+    {% if comment.replies.all %}
+    <div class="replies ps-5 py-2 ms-5" >
+        <a class="btn btn-secondary p-1" data-bs-toggle="collapse" href="#collapse{{comment.id}}" 
+        role="button" aria-expanded="false" aria-controls="collapseExample" style="font-size: 10px;">
+            Show Replies
+          </a>
+        <div class="collapse" id="collapse{{comment.id}}">
+        <hr>
+        {% for reply in comment.replies.all %}
+        <div class="row m-1 pb-2 ps-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.2);">  
+            <div class="col-3 text-center d-flex align-items-center ps-4">
+                <a href="{% url 'profile' pk=reply.user.id %}" class="text-decoration-none">
+                    <img style="width: 20px;" src="{{reply.user.get_profile_picture}}" alt="">
+                    <p class="m-0 text-dark">@{{reply.user}}</p>
+                </a>
+            </div>  
+            <div class="col-9">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <p class="mb-2 pe-2 text-justify" style="text-align: justify;">{{reply.content}}</p>
+                    <p class="text-muted m-0" style="font-size: 10px;"><i class="fa-regular fa-clock me-2"></i>{{reply.created_at.date}}</p>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+        </div>
+    </div>
+    {%endif%}
+    <form action="{% url 'create_reply' comment_id=comment.id %}" method="POST"
+    class="m-2 pb-5" id="{{comment.id}}" hidden>
+        {%csrf_token%}
+        <div class="d-flex justify-content-between align-items-center w-100 p-2">
+            <img class="rounded-circle shadow-1-strong me-3"
+            src="{{user.get_profile_picture}}" alt="avatar" width="40"
+            height="40" />
+            <div class="text-center">
+                <h6>Add Reply</h6>
+                <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            <div class="form-outline w-75">
+                <textarea class="form-control" required name="content" rows="2"
+                    style="background: #fff;"></textarea>
+            </div>
+        </div>
+        <div class="float-end mt-2 pt-1">
+            <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+            <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
         </div>
 
-    </div>
+    </form>
 </div>

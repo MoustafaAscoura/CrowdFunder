@@ -8,7 +8,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from django.core.exceptions import PermissionDenied
-
+from django.db.models import Q
+from operator import or_
+from functools import reduce
 
 
 def project_list(request):
@@ -18,8 +20,8 @@ def project_list(request):
 def project_detail(request, pk):
     project = get_object_or_404(Project, id=pk)
 
-    # similars = Project.objects.filter(category=project.category).exclude(id=pk)[:4]
-    similars = Project.objects.all().exclude(id=pk)[:4]
+    # This query checks for any project within the same category or have a common tag
+    similars = Project.objects.filter(reduce(or_, [Q(tags__icontains=tag) for tag in project.tags_array] + [Q(category=project.category)])).exclude(id=pk)[:4]
     return render(request, 'projects/project_detail.html', {'project': project, 'similars': similars})
 
 @login_required

@@ -36,7 +36,7 @@
             {%endif%}
             
         </div>
-        <div class="col-12 col-lg-4 p-3 position-relative">
+        <div class="col-12 col-lg-4 p-3 position-relative" >
             {%if user == project.user %}
             <div class="control position-absolute" style="right: 20px; top: 65px;">
                 <a class="btn btn-outline-dark" href="{% url 'edit_project' pk=project.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -67,7 +67,7 @@
             </form>
             <div class="d-flex justify-content-center">
                 
-                {% if project.raised_money >=  project.total_target %}
+                {% if project.raised_money >=  project.total_target or project.expired %}
                     <button class="btn btn-success m-3" disabled id="donate_now">Donate Now</button>
                 {% else %}
                     <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
@@ -116,10 +116,27 @@
 
     <div class="row gx-3">
         <div class="col-12 col-lg-6 p-0 my-3">
-            <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
-                <a href="{% url 'create_comment' pk=project.id %}" class="btn btn-outline-info float-end">Add Comment</a>
+            <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px; min-height: 25vh;">
+                <button  class="btn btn-outline-info float-end" id="show_comment_form">Add Comment</button>
                 <h2>Comments</h2>
-                <div class="comments">
+                <div class="comments" style="max-height: 70vh; overflow: auto;">
+                        <form method="POST" id="comment_form" action="{% url 'create_comment' pk=project.id %}" 
+                        class="pt-2 pb-5 border-0 mx-2" hidden>
+                            {%csrf_token%}
+                            <div class="d-flex flex-start w-100">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                src="{{user.get_profile_picture}}" alt="avatar" width="40"
+                                height="40" />
+                                <div class="form-outline w-100">
+                                <textarea class="form-control" required name="content" rows="4"
+                                    style="background: #fff;"></textarea>
+                                </div>
+                            </div>
+                            <div class="float-end mt-2 pt-1">
+                                <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                            </div>
+                        </form>
                     <hr>
                     {%if project.comments.all %}
                         {%for comment in project.comments.all%}
@@ -128,14 +145,17 @@
                     {%else%}
                         <h3>There are currently no comments!</h3>
                     {%endif%}
+
                 </div>
             </div>   
         </div>
-        <div class="col-12 col-lg-6 p-0 ps-md-2 my-3">
-            <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px;">
-                <a href="{% url 'create_review' pk=project.id %}" class="float-end btn btn-outline-info">Add Review</a>
+        <div class="col-12 col-lg-6 p-0 ps-md-2 my-3 h-100">
+            <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px; min-height: 25vh;">
+                {% if project.user != user %}
+                    {% include "projects/partials/addreviewcard.html" with projectid=project.id %}
+                {%endif%}
                 <h2>Reviews</h2>
-                <div class="reviews">
+                <div class="reviews" style="max-height: 70vh;overflow: auto;">
                     <hr>
                     {%if project.reviews.all %}
                         {%for review in project.reviews.all%}
@@ -155,7 +175,7 @@
         <div class="list-group list-group-horizontal overflow-auto" style="height: 56vh;">
             {% for project in similars %}
             <div class="list-group-item border-0">
-                <div class="card h-100" style="min-width: 20rem;">
+                <div class="card h-100" style="width: 20rem;">
                   {% include "projects/partials/projectinfo.html" with project=project %}
                 </div>
               </div>
@@ -169,16 +189,5 @@
     </div>
    
 </div>
-<script src="{% static 'js/jquery.js' %}"></script>
-<script>
-    $(document).ready(function(){
-            $("#donate_now").click(function(event){
-                $("#dform").attr("hidden", false)
-                $("#donate_now").hide()
-            })
-        })
-          
-    </script>
-
 {% endblock %}
 
