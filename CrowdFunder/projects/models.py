@@ -88,3 +88,6 @@ class Donation(models.Model):
 class Photo(models.Model):
     photo = models.ImageField(upload_to="projects/images/%Y/%m/%d/%H/%M/%S/", null=True, blank=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE, related_name='photos')
+
+
+    

@@ -30,3 +30,6 @@ class SearchView(generic.ListView):
         )
         self.extra_context = {'search': param}
         return projects
+    
+
+

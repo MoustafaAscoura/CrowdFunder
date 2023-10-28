@@ -51,12 +51,23 @@ a.start {
 }
 
 #home .btn-secondary {
-    color: #07829b;
+    /* color: #07829b; */
     background-color: #f8eaea00;
     border-color: #6c757d;
 }
 
+
 /* End of Home Page Styling */
+
+
+
+ .nav-link {
+    color: white;
+    
+}
+
+
+/* End Of Header Styling */
 
 footer {
     position: absolute;
