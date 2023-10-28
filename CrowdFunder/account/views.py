@@ -117,15 +117,3 @@ class DeleteAccount(generic.DeleteView):
         form.error = forms.ValidationError("Wrong password! Try again.")
         return self.form_invalid(form)
     
-class ProjectsView(generic.ListView):
-    # template_name = 
-    # def get_queryset(self):
-    #     return Project.query.filter(user=self.request.user)
-    pass
-
-class DonationsView(generic.ListView):
-    # template_name = 
-    # def get_queryset(self):
-    #     return Donation.query.filter(user=self.request.user)
-    pass
-

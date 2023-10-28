@@ -1,6 +1,6 @@
 <div class="comment-card border border-muted border-2 rounded mb-2">
     <div class="row m-1  p-3 ps-1">  
-        <div class="col-3 text-center d-flex align-items-center ps-4">
+        <div class="col-3 text-center ps-2" style="overflow: hidden;">
             <a href="{% url 'profile' pk=comment.user.id %}" class="text-decoration-none">
                 <img style="width: 50px;" src="{{comment.user.get_profile_picture}}" alt="">
                 <h6 class="m-0  text-dark">@{{comment.user}}</h6>
@@ -8,7 +8,7 @@
         </div>  
         <div class="col-9">
             <a class="btn btn-outline-danger float-end" 
-            href="{% url 'report_comment' comment_id=comment.id pk=project.pk %}?type=comment" style="margin: -10px -20px 0 0;">
+            href="{% url 'report' pk=comment.id %}?type=comment" style="margin: -10px -20px 0 0;">
             <i class="fa-regular fa-flag"></i> 
             </a>  
             <button class="btn btn-outline-primary float-end reply" comment_id="{{comment.id}}" style="margin: 40px -40px 0 0;">

@@ -7,8 +7,6 @@ urlpatterns = [
     path('profile/<int:pk>', ShowProfile.as_view(), name='profile'),
     path('profile/edit', login_required(EditAccount.as_view()), name='editprofile'),
     path('profile/delete', login_required(DeleteAccount.as_view()), name='delete_user'),
-    path("profile/projects", login_required(ProjectsView), name="userprojects"),
-    path("profile/donations", login_required(DonationsView), name="userdonations"),
 
     #Authentication
     path('login/', Login.as_view(), name='login'),

@@ -1,4 +1,4 @@
-from django.shortcuts import  render, redirect
+from django.shortcuts import  redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
@@ -9,33 +9,31 @@ from .forms import *
 from .models import Report, Review, Comment
 from projects.models import Project
 
-class Reports(generic.ListView):
+class ReportsList(generic.ListView):
     model = Report
     context_object_name = 'reports'
     template_name = 'reports/reports_list.html'
 
-class ReportProject(LoginRequiredMixin, generic.CreateView):
+class Report(LoginRequiredMixin, generic.CreateView):
     model = Report
+    template_name = 'feedback/report.html'
     form_class = ReportForm
-    success_url = reverse_lazy('report_list')
-    template_name='reports/create.html'
 
-def report_comment(request, comment_id, pk):
-    if request.method == 'POST':
-        form = ReportForm(request.POST)
-        if form.is_valid():
-            comment = Comment.objects.get(id=comment_id)
-            project = Project.objects.get(id=pk)
-            report = form.save(commit=False)
+    def form_valid(self, form):
+        report = form.save(commit=False)
+
+        if self.request.GET.get('type') == 'comment':
+            comment = Comment.objects.get(id=self.kwargs['pk'])
+            project = comment.project
             report.comment = comment
-            report.project = project
-            report.user = request.user
-            report.save()
-            return redirect('project_detail', pk=pk )
-    else:
-        form = ReportForm()
-    return render(request, 'reports/report_comment.html', {'form': form})
+        else:
+            project = Project.objects.get(id=self.kwargs['pk'])
 
+        report.project = project
+        report.user = self.request.user
+        report.save()
+        return redirect(reverse_lazy('project_detail', kwargs={'pk': project.id}))
+        
 @login_required
 def create_review(request, pk):
     project = Project.objects.get(id=pk)
@@ -70,18 +68,15 @@ def create_comment( request , pk ):
     return redirect(reverse_lazy('project_detail', kwargs={'pk': pk}))
 
 @login_required
-def create_reply( request , comment_id):
+def create_reply(request , comment_id):
     comment = Comment.objects.get(id=comment_id)
-    print(comment,'aaaa')
     if request.method == 'POST':
         form = ReplyForm(request.POST)
-        print(form,'ccccc')
         if form.is_valid():
             reply = form.save(commit=False)
             reply.comment = comment
             reply.user = request.user
             reply.save()
-            print(reply,'bbb')
     
     return redirect(reverse_lazy('project_detail', kwargs={'pk': comment.project.id}))
 
