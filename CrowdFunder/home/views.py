@@ -33,3 +33,6 @@ class SearchView(generic.ListView):
     
 
 
+def category_view(request, category_name):
+    projects = Project.objects.filter(category=category_name)
+    return render(request, 'projects/project_list.html', {'projects': projects})
