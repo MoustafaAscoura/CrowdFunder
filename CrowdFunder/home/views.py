@@ -1,5 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
+from django.db.models import Avg
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
@@ -7,9 +8,9 @@ from projects.models import Project
 from django.db.models import Q
 
 def index(request):
-    projects = Project.objects.all()
-    print(projects)
-    return render(request, 'home/home.html', {'projects': projects})
+    top_rated_projects = Project.objects.annotate(avg_rating=Avg('reviews__rate')).order_by('-avg_rating')[:6]
+    latest_projects = Project.objects.order_by('-created_at')[:6]
+    return render(request, 'home/home.html', {'top_rated_projects': top_rated_projects, 'latest_projects': latest_projects})
 
 def contact(request):
     return render(request, 'home/contact.html')
