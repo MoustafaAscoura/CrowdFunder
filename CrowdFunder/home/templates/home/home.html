@@ -27,7 +27,7 @@
     <div class="carousel-inner">
       {% for project in top_rated_projects %}
       <div class="carousel-item{% if forloop.first %} active{% endif %}" data-bs-interval="10000">
-        <img src="{% static project.thumbnail %}" style="height:450px; opacity:40%" class="d-block w-100" alt="...">
+        <img src="{{ project.thumbnail }}" style="height:450px; opacity:70%" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>{{ project.title }}</h5>
           <p> {{project.details }} </p>
@@ -53,15 +53,13 @@
 {% comment %} Categories Side Bar {% endcomment %}
 
 
-<main >
-  {% comment %} <div class="row" > {% endcomment %}
-    {% comment %} <div class="col-md-8">
+
+   <div class="row" > 
+     
     
-    </div> {% endcomment %}
-    <div class="col-md-4 "  style="     position: absolute;
-    right: -253px;
-    top: 135px;
-    width: 367px;">
+    
+    <div class="col-md-4 "  
+    
       <div class="content-section" style="height:300px">
         <h3>Categories</h3>
           <ul class="list-group">
@@ -95,8 +93,8 @@
         </p>
       </div>
     </div>
-  {% comment %} </div> {% endcomment %}
-</main>
+   </div> 
+
 
 
 {% comment %} ---------------------------------------- {% endcomment %}
