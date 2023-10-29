@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='photos',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.ImageField(blank=True, null=True, upload_to="projects/images/%Y/%m/%d/%H/%M/%S'"), default=list, size=None),
+            field=models.TextField(),
         ),
         migrations.AlterField(
             model_name='project',
             name='tags',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=64), blank=True, default=list, size=None),
+            field=models.TextField(),
         ),
     ]

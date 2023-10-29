@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv  
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2hk1_d*ln7#$k2(m&@7syr-pffvvh4l=r-c@7tos#2dw@=%5c4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['ascoura.pythoneverywhere.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['ascoura.pythonanywhere.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -81,28 +83,17 @@ WSGI_APPLICATION = 'CrowdFunder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+DATABASES = DATABASES = {
     'default' : {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'croundfunder',
-        'USER':'django_crowd',
-        'PORT':'5432',
-        'HOST':'localhost',
-        'PASSWORD':'abc123'
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME':os.getenv('DB_NAME'),
+        'USER':os.getenv('DB_USER'),
+        'PORT':os.getenv('DB_PORT'),
+        'HOST':os.getenv('DB_HOST'),
+        'PASSWORD':os.getenv('DB_PASSWORD')
     }
 }
-#Database for production
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ascoura$CrowdFunderascoura$CrowdFunder',
-        'USER': 'ascoura',
-        'PASSWORD': 'Abc_12345',
-        'HOST': 'ascoura.mysql.pythonanywhere-services.com',
-    }
-}
-'''
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
