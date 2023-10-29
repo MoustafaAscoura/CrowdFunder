@@ -2,153 +2,119 @@
 {% load static %}
 {% block content %}
 
-
 <div class="container position-relative" id="Home">
 
+  <!-- Featured Projects -->
+  <div class="join my-5">
+    <!--  highest five rated running projects -->
 
+    <div id="carouselExampleDark" class="carousel carousel-dark slide">
+      <div class="text-center position-absolute text-light m-3 p-3 rounded-pill" 
+      style="z-index: 5; background-color: rgba(0, 0, 0, 0.35);">
+        <h2> Our Featured Projects </h2></div>
 
-
-  {% comment %} --------------------------------------- {% endcomment %}
-
-    <div class="container join">
-       
-
-<h1 class="text-center"> Our 6 Highest Rated Projects </h1>  
-   <!--  highest five rated running projects -->
-
-<div id="carouselExampleDark" class="carousel carousel-dark slide">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
-    </div>
-    <div class="carousel-inner">
-      {% for project in top_rated_projects %}
-      <div class="carousel-item{% if forloop.first %} active{% endif %}" data-bs-interval="10000">
-        <img src="{{ project.thumbnail }}" style="height:450px; opacity:70%" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ project.title }}</h5>
-          <p> {{project.details }} </p>
-        </div>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
       </div>
-      {% endfor %}
+      <div class="carousel-inner">
+        {% for project in featured_projects %}
+        <div class="carousel-item{% if forloop.first %} active{% endif %}" data-bs-interval="10000">
+          <img src="{{ project.thumbnail }}" style="height:60vh; opacity:90%; object-fit: cover;" class="d-block w-100" alt="...">
+          <div class="carousel-caption rounded" style="background-color: rgba(255, 255, 255, 0.25);">
+            <h3>{{ project.title }}</h3>
+            <p> {{project.details }} </p>
+            <a href="{% url 'project_detail' pk=project.id %}" class="btn btn-outline-light">View Details</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-    
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+
+
   </div>
 
-  {% comment %} --------------------------------------------------------- {% endcomment %}
+  <!-- Categories -->
+  <div class="bg-light p-3 my-3 rounded">
+    <h3>Browse by category</h3>
 
-
-
-{% comment %} Categories Side Bar {% endcomment %}
-
-
-
-   <div class="row" > 
-     
-    
-    
-    <div   
-    
-      <div class="content-section" style="height:300px;text-align: center; margin-top: 20px;">
-        <h3>Our Five Categories</h3>
-          <ul class="list-group">
-            <li class="list-group-item list-group-item">
-              <a class="btn btn-dark" style="width:100%" href="{% url 'category' 'Social' %}">
-               
-                 Social
-                 <i class="fa-solid fa-people-arrows"></i>
-              </a>
-            </li>
-            <li class="list-group-item list-group-item-light" >
-                <a class="btn btn-light" style="width:100%" href="{% url 'category' 'Humanitarian' %}">
-                
-                  Humanitarian
-                  <i class="fa-solid fa-hand-holding-heart"></i>
-              </a>
-            </li>
-            <li class="list-group-item list-group-item-light" >
-                <a class="btn btn-dark" style="width:100%" href="{% url 'category' 'Health' %}">
-                Health
-                <i class="fa-solid fa-user-nurse"></i>
-              </a>
-            </li>
-            <li class="list-group-item list-group-item-light" >
-                <a class="btn btn-light" style="width:100%" href="{% url 'category' 'Education' %}">
-                  
-                  Education
-                  <i class="fa-solid fa-school"></i>
-              </a>
-            </li>
-            <li class="list-group-item list-group-item-light" >
-                <a class="btn btn-dark" style="width:100%" href="{% url 'category' 'Political' %}">
-              Political
-              <i class="fa-regular fa-handshake"></i>
-              </a>
-            </li>
-           
-          </ul>
-        </p>
+    <div class="row gx-3 row-cols-1 row-cols-lg-5 " style=" margin-top: 20px;">
+      <div class="col">
+        <a class="btn btn-dark w-100" href="{% url 'category' 'Social' %}">
+          Social <i class="fa-solid fa-people-arrows"></i></a>
+      </div>
+      <div class="col px-3">
+        <a class="btn btn-outline-dark w-100" href="{% url 'category' 'Humanitarian' %}">
+          Humanitarian <i class="fa-solid fa-hand-holding-heart"></i></a>
+      </div>
+      <div class="col">
+        <a class="col btn btn-dark w-100" href="{% url 'category' 'Health' %}">
+          Health <i class="fa-solid fa-user-nurse"></i></a>
+      </div>
+      <div class="col px-3">
+        <a class="col btn btn-outline-dark px-3 w-100" href="{% url 'category' 'Education' %}">
+          Education <i class="fa-solid fa-school"></i></a>
+      </div>
+      <div class="col">
+        <a class="col btn btn-dark w-100  " href="{% url 'category' 'Political' %}">
+          Political <i class="fa-regular fa-handshake"></i></a>
       </div>
     </div>
-   </div> 
+  </div>
 
+  <!-- High Rated Projects -->
+  {% if top_rated_projects %}
+  <div class="top-rated my-3">
+    <h2> Top Rated Projects </h2>
+    <div class="row mt-2 gy-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
+      {% for project in top_rated_projects %}
+      <div class="col">
+        <div class="card position-relative mx-1" style="height: 60vh;">
+          {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+  {% endif %}
 
-
-{% comment %} ---------------------------------------- {% endcomment %}
-
-  {% comment %} LIST OF THE LATEST 5 PROJECTS  {% endcomment %}
-
-  <br> 
-  <br> 
-  <br> 
-  <br> 
-  <br>
-
-
-
- 
-  <h1 class="text-center">Our Latest 6 Projects</h1>
-
-  <div class="container">
+  <!-- Latest Projects -->
+  <div>
+    <h1 class="text-center">Our Latest Projects</h1>
     {% if latest_projects %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 my-2 overflow-hidden">
       {% for project in latest_projects %}
       <div class="col">
         <div class="card position-relative mx-1" style="height: 60vh;">
-            {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
+          {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
         </div>
-        <br> 
       </div>
       {% endfor %}
     </div>
     {% else %}
     <h3 class="text-center">No projects found.</h3>
     <div class="d-flex justify-content-center">
-      <a class="btn btn-primary w-50 mx-auto" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add Project</a>
+      <a class="btn btn-primary w-50 mx-auto" href="{% url 'project_create' %}" style="margin-bottom: 10px;">Add
+        Project</a>
     </div>
     {% endif %}
 
-</div>
-{% comment %} ------------------------------------------------------------------ {% endcomment %}
-
-{% comment %} - List of latest 5 featured projects (which are selected by the admin) 
-- A list of the categories. User can open each category to view its projects {% endcomment %}
+  </div>
 
 
-
-
-</div>
 </div>
 
 {% endblock %}

@@ -68,7 +68,7 @@
             <div class="d-flex justify-content-center">
                 
                 {% if project.raised_money >=  project.total_target or project.expired %}
-                    <button class="btn btn-success m-3" disabled id="donate_now">Donate Now</button>
+                    <button class="btn btn-success m-3" disabled id="donate_now">Amount Raised!</button>
                 {% else %}
                     <button class="btn btn-success m-3" id="donate_now">Donate Now</button>
                 {% endif %}
