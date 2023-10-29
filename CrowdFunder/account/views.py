@@ -1,9 +1,6 @@
-from typing import Any
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
-from django.db.models.query import QuerySet
-from django.forms.models import BaseModelForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect,resolve_url
 from django.urls import reverse_lazy,reverse
 from django.utils.encoding import force_str
@@ -12,7 +9,6 @@ from django.views import generic
 from social_django.models import UserSocialAuth
 
 from .models import User
-from projects.models import Project,Donation
 from .forms import *
 from .tokens import account_activation_token,send_verification_email
 

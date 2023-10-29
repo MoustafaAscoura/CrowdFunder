@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary mx-5 rounded-pill fw-bold navbar-dark bg-dark px-3" style="box-shadow: 0 0 10px; ">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fw-bold navbar-dark bg-dark px-3" style="box-shadow: 0 0 10px; ">
   <div class="container-fluid">
     <a class="navbar-brand text-success" href="{% url 'index' %}">CrowdFunder</a>
     <button class="navbar-toggler btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +10,7 @@
           <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'project_list' %}">Explore</a>
+          <a class="nav-link" aria-current="page" href="{% url 'project_list' %}">Explore</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About us</a>
@@ -19,7 +19,7 @@
           <a class="nav-link" href="/contact">Contact us</a>
         </li>
       </ul>
-      <div class="d-flex justify-content-between align-items-center">
+      <ul class="d-flex justify-content-between align-items-center m-0">
         <form class="d-flex w-50 h-50"  action="{% url 'search' %}" method="get">
           <input class="form-control me-2 p-1" name="param" type="search" placeholder="Search" aria-label="Search">
           <button type="submit" class="btn p-0"><i class="fa fa-search text-light fs-4"></i></button>
@@ -27,8 +27,8 @@
         {% if user.id %}
         <div class="btn-group" >
           <a type="button" class="btn btn-info" href="{% url 'profile' pk=user.id %}" style="background-color:white; border:none">
-            <img src="{{user.get_profile_picture}}" 
-            onerror="this.onerror=null;this.src='/media/account/images/annon.png';" 
+            <img src="{{user.get_profile_picture}}"
+            onerror="this.onerror=null;this.src='/media/account/images/annon.png';"
             alt="Avatar" class="img-fluid rounded-circle me-2" style="width: 30px;" />
             {% if user.first_name %}{{user.first_name}}{%else%}{{user}}{%endif%}
           </a>
@@ -52,7 +52,7 @@
           <a class="nav-link m-0" href="{% url 'signup' %}">Signup</a>
         </li>
         {% endif %}
-      </div>
+      </ul>
 
     </div>
   </div>

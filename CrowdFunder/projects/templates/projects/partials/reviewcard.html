@@ -2,7 +2,7 @@
     <div class="col-4 text-center d-flex flex-column align-items-center justify-content-center">
         <a href="{% url 'profile' pk=review.user.id %}" class="text-decoration-none">
             <img style="width: 50px;" src="{{review.user.get_profile_picture}}" alt="">
-            <h6 class="m-0  text-dark">@{{review.user}}</h6>
+            <h6 class="m-0  text-dark">@{{review.user.full_name}}</h6>
         </a>
     </div>  
     <div class="col-8 d-flex flex-column justify-content-between h-100">

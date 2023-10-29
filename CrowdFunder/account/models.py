@@ -19,7 +19,7 @@ class User(AbstractUser):
         return self.username
     
     @property
-    def fullname(self):
+    def full_name(self):
         if self.first_name:
             return self.first_name + " " + self.last_name
         return self.username

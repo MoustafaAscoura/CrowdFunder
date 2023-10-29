@@ -7,7 +7,7 @@ from django.views import generic
 from projects.models import Project
 from django.db.models import Q
 
-def index(request):
+def index(request):    
     allprojects = list(Project.objects.all())
     top_rated_projects = sorted(allprojects, key=lambda x:x.rate, reverse=True)[:6]
     latest_projects = sorted(allprojects, key=lambda x:x.created_at, reverse=True)[:6]

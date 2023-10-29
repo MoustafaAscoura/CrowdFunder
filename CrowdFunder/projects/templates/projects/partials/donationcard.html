@@ -1,10 +1,10 @@
 <div class="review-card row m-1">
     <div class="col-4 text-center">
         <img style="width: 70px;" src="{{donation.user.get_profile_picture}}" alt="">
-        <h5>{{donation.user.fullname}}</h5>
+        <h5>{{donation.user.full_name}}</h5>
     </div>
     <div class="col-8">
-        <p><strong>{{donation.user.fullname}}</strong> donated <strong>${{donation.amount}}</strong> to <strong>{{donation.project}}</strong></p>
+        <p><strong>{{donation.user.full_name}}</strong> donated <strong>${{donation.amount}}</strong> to <strong>{{donation.project}}</strong></p>
         <p class="text-muted"><i class="fa-regular fa-clock me-2"></i>{{donation.created_at.date}}</p>
     </div>
 </div>
