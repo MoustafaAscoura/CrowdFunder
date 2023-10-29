@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2hk1_d*ln7#$k2(m&@7syr-pffvvh4l=r-c@7tos#2dw@=%5c4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ascoura.pythoneverywhere.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -91,8 +91,18 @@ DATABASES = {
         'PASSWORD':'abc123'
     }
 }
-
-
+#Database for production
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ascoura$CrowdFunderascoura$CrowdFunder',
+        'USER': 'ascoura',
+        'PASSWORD': 'Abc_12345',
+        'HOST': 'ascoura.mysql.pythonanywhere-services.com',
+    }
+}
+'''
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -128,6 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
