@@ -84,7 +84,7 @@
     <div class="row mt-2 gy-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
       {% for project in top_rated_projects %}
       <div class="col">
-        <div class="card position-relative mx-1" style="height: 60vh;">
+        <div class="card position-relative mx-1 rounded" style="height: 550px;">
           {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
         </div>
       </div>
@@ -100,7 +100,7 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 my-2 overflow-hidden">
       {% for project in latest_projects %}
       <div class="col">
-        <div class="card position-relative mx-1" style="height: 60vh;">
+        <div class="card position-relative mx-1 rounded" style="height: 550px;">
           {% include "projects/partials/projectinfo.html" with project=project inlist=1 %}
         </div>
       </div>

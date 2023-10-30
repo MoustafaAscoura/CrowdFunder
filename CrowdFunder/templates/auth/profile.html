@@ -87,10 +87,10 @@
                   >
                   <div class="accordion-body">
                     {% if profileuser.projects.all %}
-                      <div class="list-group list-group-horizontal position-relative overflow-auto" style="height: 55vh;">
+                      <div class="list-group list-group-horizontal position-relative overflow-auto" style="height: 550px;">
                         {%for project in profileuser.projects.all%}
                         <div class="list-group-item border-0">
-                          <div class="card position-relative h-100" style="width: 18rem;">
+                          <div class="card position-relative h-100 rounded" style="width: 20rem;">
                             {% include "projects/partials/projectinfo.html" with project=project %}
                           </div>
                         </div>
