@@ -30,7 +30,7 @@ class Review(models.Model):
                 rates_list.append(1)
         
         return rates_list
-
+    
 class Report(models.Model):
     reason=models.CharField(max_length=500)
     status=models.CharField(max_length=15)
@@ -40,7 +40,9 @@ class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return self.reason
+        return self.reason    
+
+
     
 class Reply(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='replies')
