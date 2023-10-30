@@ -1,15 +1,49 @@
 {% extends "home/base.html" %}
-
+<div style="align-self: center;  box-sizing: border-box;"></div>
 {% block content %}
+
 <br>
 
     <div class="container mt-2 mb-5">
        
         {% for report in reports %}
+       
+        <div class="comment-card border border-muted border-2 rounded mb-2 justify-content-between">
+            <div class="row m-1  p-3 ps-1">  
+                <div class="col-3 text-center ps-2" style="overflow: hidden;">
+                    <a href="{% url 'profile' pk=report.user.id %}" class="text-decoration-none">
+                        <img style="width: 50px;" src="{{report.user.get_profile_picture}}" alt="">
+                        <h6 class="m-0  text-dark">@{{report.user.full_name}}</h6>
+                    </a>
+                </div>  
+               
+                <div class="col-6 ">
+                
+                    
+                        <p class="mb-2 pe-2 text-justify" style="text-align: justify;">
+                            report content:> <strong> {{report}}  </strong></p>
+                        {% if report.comment%}
+                        <p class="">this is a comment report </p>
+                        <p>comment content:><strong>({{report.comment.content}})</strong></p>
+                        {%endif%}
+                
+                
+                
+                </div> 
+                <div class="col-2 me-2 ">
+                
+                    
+                        <p class="mb-2 pe-2 text-justify" style="text-align: justify;">project name:> {{report.project}}</p>
+                        <p class="text-muted m-0"><i class="fa-regular fa-clock me-2"></i>{{report.created_at.date}}</p>
+                     
 
-        <div>{{report}}</div>
-
+                
+                </div>
+            </div>
+       </div>
+        
         {% endfor %}
      </div>
-    
+   
 {% endblock %}
+</div> 
