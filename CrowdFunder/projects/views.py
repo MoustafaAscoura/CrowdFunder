@@ -15,10 +15,12 @@ from functools import reduce
 
 def project_list(request):
     projects = Project.objects.all()
+    
     return render(request, 'projects/project_list.html', {'projects': projects})
 
 def project_detail(request, pk):
     project = get_object_or_404(Project, id=pk)
+    print(project.is_featured)
 
     # This query checks for any project within the same category or have a common tag
     similars = Project.objects.filter(reduce(or_, [Q(tags__icontains=tag) for tag in project.tags_array] + [Q(category=project.category)])).exclude(id=pk)[:4]
@@ -46,6 +48,24 @@ def donate(request, pk):
             HttpResponseBadRequest("Donation Amount is invalid")
 
     return redirect(reverse_lazy('project_detail', kwargs={'pk': pk}))
+
+@login_required
+def feature(request, pk):
+    
+    project = get_object_or_404(Project, id=pk)
+    if request.user.is_superuser:
+        if project.is_featured:
+            project.is_featured=False
+
+        else:
+            project.is_featured=True    
+        
+        
+        project.save()
+        print(project.is_featured )
+        return redirect(reverse_lazy('project_list'))
+
+   
 
 class CreateProject(generic.CreateView):
     model = Project

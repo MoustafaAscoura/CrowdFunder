@@ -1,9 +1,15 @@
 
 {% if user.is_superuser %}
+{% if project.is_featured %}
 <a class="position-absolute badge bg-secondary m-2 badge text-dark text-decoration-none"
-href="" style="right: 5px; z-index: 5;">
+href="{%url 'feature' pk=project.id %}" style="right: 5px; z-index: 5; cursor:disable;">
 <i class="fa-regular fa-heart"></i></a>
-    
+{% else %}
+<a class="position-absolute badge bg-success m-2 badge text-dark text-decoration-none"
+href="{%url 'feature' pk=project.id %}" style="right: 5px; z-index: 5;">
+<i class="fa-regular fa-heart"></i></a>
+{%endif%}
+
 {% endif %}
 <a
   class="position-absolute m-2 badge bg-warning text-dark text-decoration-none"

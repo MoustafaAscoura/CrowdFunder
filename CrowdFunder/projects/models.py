@@ -13,15 +13,27 @@ class Project(models.Model):
     category = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='projects')
     tags = models.CharField(max_length=64,blank=True,default="")
+    is_featured=models.BooleanField(default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
     
-    @classmethod
-    def featured_projects(self):
-        return []
+    # @classmethod
+    # def featured_projects(self):
+    #     featured=[] 
+    #     # if self.is_featured == False:
+    #     #    self.is_featured = True
+    #     #    featured.append(self) 
+           
+    #     # else:
+            
+    #     #     self.is_featured=False
+    #     #     print(self.is_featured)
+    #     #    # featured.extend(self)   
+            
+    #     # return featured
 
     @property
     def tags_array(self):
