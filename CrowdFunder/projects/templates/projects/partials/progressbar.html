@@ -1,5 +1,5 @@
 <div class="card-text progress position-relative" style="height: 25px;">
-    <h6 class="position-absolute text-center w-100" style="line-height: 25px;">Raised ${{project.raised_money}}</h6>
+    <h6 class="position-absolute text-center w-100" style="line-height: 25px;">Raised ${{project.raised_money}} / {{project.total_target}}</h6>
     <div class="progress-bar progress-bar-striped progress-bar-animated fs-6 text-dark" role="progressbar"
         aria-valuenow="{{project.raised_money}}" aria-valuemin="0" style="width:{{project.percentage}}%"
         aria-valuemax="{{project.total_target}}"></div>

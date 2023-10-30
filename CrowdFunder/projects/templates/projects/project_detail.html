@@ -118,7 +118,7 @@
         <div class="col-12 col-lg-6 p-0 my-3">
             <div class="bg-light rounded p-3" style="box-shadow: 0 0 5px; min-height: 25vh;">
                 <button  class="btn btn-outline-info float-end" id="show_comment_form">Add Comment</button>
-                <h2 style="height: 30px;">Comments</h2>
+                <h2 style="height: 32px;">Comments</h2>
                 <div class="comments" style="max-height: 70vh; overflow: auto;">
                         <form method="POST" id="comment_form" action="{% url 'create_comment' pk=project.id %}" 
                         class="pt-2 pb-5 border-0 mx-2" hidden>
@@ -154,7 +154,7 @@
                 {% if project.user != user %}
                     {% include "projects/partials/addreviewcard.html" with projectid=project.id %}
                 {%endif%}
-                <h2 style="height: 30px;">Reviews</h2>
+                <h2 style="height: 32px;">Reviews</h2>
                 <div class="reviews" style="max-height: 70vh;overflow: auto;">
                     <hr>
                     {%if project.reviews.all %}

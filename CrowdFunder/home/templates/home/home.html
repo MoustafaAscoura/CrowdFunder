@@ -1,9 +1,28 @@
 {% extends 'home/base.html' %}
 {% load static %}
 {% block content %}
+<style>
+  .float{
+      position:fixed;
+      bottom:40px;
+      right:40px;
+      text-align:center;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 5;
+  }
+  
+  .my-float{
+      margin-top:22px;
+  }
+  
+</style>
 
 <div class="container position-relative" id="Home">
-
+  {% if user %}
+    <a href="{% url 'project_create' %}" class="float p-3 fs-5 rounded-pill bg-info text-decoration-none text-light">
+        <i class="fa fa-plus"></i> Add a new project
+    </a>
+  {%endif%}
   <!-- Featured Projects -->
   {% if featured_projects %}
   <div class="join my-5">
