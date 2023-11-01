@@ -1,27 +1,20 @@
 
 {% if user.is_superuser %}
-{% if project.is_featured %}
-<a class="position-absolute badge bg-secondary m-2 badge text-dark text-decoration-none"
-href="{%url 'feature' pk=project.id %}" style="right: 5px; z-index: 5; cursor:disable;">
-<i class="fa-regular fa-heart"></i></a>
-{% else %}
-<a class="position-absolute badge bg-success m-2 badge text-dark text-decoration-none"
-href="{%url 'feature' pk=project.id %}" style="right: 5px; z-index: 5;">
-<i class="fa-regular fa-heart"></i></a>
-{%endif%}
-
+    <a class="fs-3 position-absolute badge text-warning p-2 featured" 
+    href="{%url 'feature' pk=project.id %}" style="right: 5px; z-index: 5; top:5px; background-color: rgba(255, 255, 255, 0.20);">
+    {% if project.is_featured %}
+      <i class="fa-solid fa-heart"></i>
+    {% else %}
+      <i class="fa-regular fa-heart"></i>
+    {%endif%}
+    </a>
 {% endif %}
-<a
-  class="position-absolute m-2 badge bg-warning text-dark text-decoration-none"
-  href="{%url 'category' category=project.category%}"
-  >{{project.category}}</a
->
-<a href="{% url 'project_detail' pk=project.id %}" class="h-50"
-  ><img
-    src="{{project.thumbnail}}"
-    class="card-img-top img-fluid h-100"
-    alt="thumbnail"
-/></a>
+<a class="position-absolute m-2 badge bg-warning text-dark text-decoration-none"
+  href="{%url 'category' category=project.category%}">{{project.category}}</a>
+
+<a href="{% url 'project_detail' pk=project.id %}" class="h-50">
+  <img src="{{project.thumbnail}}" class="card-img-top img-fluid h-100" alt="thumbnail"/></a>
+
 <div class="card-body p-4">
   <h3 style="text-overflow: ellipsis" class="text-nowrap overflow-hidden">
     <a

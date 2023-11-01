@@ -51,23 +51,14 @@ def donate(request, pk):
 
 @login_required
 def feature(request, pk):
-    
     project = get_object_or_404(Project, id=pk)
     if request.user.is_superuser:
-        if project.is_featured:
-            project.is_featured=False
-
-        else:
-            project.is_featured=True    
-        
-        
+        project.is_featured = not project.is_featured
         project.save()
-        print(project.is_featured )
-        return redirect(reverse_lazy('project_list'))
+    return redirect(reverse_lazy('project_list'))
 
    
-
-class CreateProject(generic.CreateView):
+class CreateProject(LoginRequiredMixin, generic.CreateView):
     model = Project
     form_class = ProjectFileForm
     success_url = reverse_lazy('project_list')

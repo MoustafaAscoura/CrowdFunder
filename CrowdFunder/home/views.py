@@ -9,14 +9,11 @@ from django.db.models import Q
 
 def index(request):    
     allprojects = list(Project.objects.all())
-    feature=list(Project.objects.filter(is_featured=True))
+    
+    featured=(allprojects.filter(lambda x:x.is_featured))
     top_rated_projects = sorted(allprojects, key=lambda x:x.rate, reverse=True)[:6]
     latest_projects = sorted(allprojects, key=lambda x:x.created_at, reverse=True)[:6]
-    featured_projects = sorted(feature, key=lambda x:float(x.rate * 20) + x.percentage, reverse=True)[:6]
-
-    #For some reason this is not working, they are not sorted in the template, and it is not effecient --> 
-    #top_rated_projects = Project.objects.annotate(avg_rating=Avg('reviews__rate')).order_by('avg_rating')[:6]
-    #latest_projects = Project.objects.order_by('-created_at')[:6]
+    featured_projects = sorted(featured, key=lambda x:float(x.rate * 20) + x.percentage, reverse=True)[:6]
 
     return render(request, 'home/home.html', {'top_rated_projects': top_rated_projects,
                                               'latest_projects': latest_projects, 'featured_projects':featured_projects})
