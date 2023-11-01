@@ -9,8 +9,7 @@ from django.db.models import Q
 
 def index(request):    
     allprojects = list(Project.objects.all())
-    
-    featured=(allprojects.filter(lambda x:x.is_featured))
+    featured=filter(lambda x:x.is_featured,allprojects)
     top_rated_projects = sorted(allprojects, key=lambda x:x.rate, reverse=True)[:6]
     latest_projects = sorted(allprojects, key=lambda x:x.created_at, reverse=True)[:6]
     featured_projects = sorted(featured, key=lambda x:float(x.rate * 20) + x.percentage, reverse=True)[:6]
