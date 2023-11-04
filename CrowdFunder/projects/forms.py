@@ -25,15 +25,15 @@ class MultipleFileField(FileField):
 
 class ProjectForm(forms.ModelForm):
     categories = (('Social','Social'),('Humanitarian', 'Humanitarian'),
-                  ('Health', 'Health'),('Education','Education'),
-                  ('Political','Political')) 
+                ('Health', 'Health'),('Education','Education'),
+                ('Political','Political')) 
 
     category = forms.ChoiceField(choices=categories)
     start_time = forms.DateTimeField(initial=datetime.now().date(),widget=forms.NumberInput(attrs={'type':'date'}),required=False)
     end_time = forms.DateTimeField(initial=datetime.now().date(),widget=forms.NumberInput(attrs={'type':'date'}),required=False)
     tags = forms.CharField(widget=forms.TextInput(
-          attrs={'data-role':"taginput",'data-max-tags':"6",'data-random-color':"true"})
-          ,required=False)
+        attrs={'data-role':"taginput",'data-max-tags':"6",'data-random-color':"true"})
+        ,required=False)
 
     class Meta:
         model = Project

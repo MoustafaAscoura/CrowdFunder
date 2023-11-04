@@ -20,20 +20,7 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
-    # @classmethod
-    # def featured_projects(self):
-    #     featured=[] 
-    #     # if self.is_featured == False:
-    #     #    self.is_featured = True
-    #     #    featured.append(self) 
-           
-    #     # else:
-            
-    #     #     self.is_featured=False
-    #     #     print(self.is_featured)
-    #     #    # featured.extend(self)   
-            
-    #     # return featured
+    
 
     @property
     def tags_array(self):

@@ -21,9 +21,10 @@ def project_list(request):
 def project_detail(request, pk):
     project = get_object_or_404(Project, id=pk)
     print(project.is_featured)
-
     # This query checks for any project within the same category or have a common tag
-    similars = Project.objects.filter(reduce(or_, [Q(tags__icontains=tag) for tag in project.tags_array] + [Q(category=project.category)])).exclude(id=pk)[:4]
+    # similars = Project.objects.filter(category=project.category).exclude(id=pk)[:4]
+    similars = Project.objects.filter(reduce(or_, [Q(tags__icontains=tag) for tag in project.tags_array]
+                                        + [Q(category=project.category)])).exclude(id=pk)[:4]
     return render(request, 'projects/project_detail.html', {'project': project, 'similars': similars})
 
 @login_required
@@ -57,7 +58,7 @@ def feature(request, pk):
         project.save()
     return redirect(reverse_lazy('project_list'))
 
-   
+
 class CreateProject(LoginRequiredMixin, generic.CreateView):
     model = Project
     form_class = ProjectFileForm
@@ -75,6 +76,26 @@ class CreateProject(LoginRequiredMixin, generic.CreateView):
                 Photo.objects.create(project=self.object,photo=f)
 
         return super().form_valid(form)
+    
+# @login_required
+# def create_project(request):
+#     if request.method == 'POST':
+#         form = ProjectFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             project = form.save(commit=False)
+#             project.user = request.user
+#             project.save()
+
+#             files = request.FILES.getlist('file')
+#             for f in files:
+#                 Photo.objects.create(project=project, photo=f)
+
+#             return redirect('project_list')
+#     else:
+#         form = ProjectFileForm()
+
+#     return render(request, 'projects/project_form.html', {'form': form})
+    
 
 class EditProjectView(LoginRequiredMixin, UpdateView):
     model = Project
@@ -97,6 +118,27 @@ class EditProjectView(LoginRequiredMixin, UpdateView):
         if obj.user != self.request.user:
             raise PermissionDenied("You are not authorized to edit this project.")
         return obj
+    
+# @login_required
+# def edit_project(request, pk):
+#     project = get_object_or_404(Project, pk=pk)
+#     if project.user != request.user:
+#         raise PermissionDenied("You are not authorized to edit this project.")
+
+#     if request.method == 'POST':
+#         form = ProjectFileForm(request.POST, request.FILES, instance=project)
+#         if form.is_valid():
+#             form.save()
+
+#             files = request.FILES.getlist('file')
+#             for f in files:
+#                 Photo.objects.create(project=project, photo=f)
+
+#             return redirect('project_list')
+#     else:
+#         form = ProjectFileForm(instance=project)
+
+#     return render(request, 'projects/project_form.html', {'form': form, 'edit': True})    
 
 class CategoryView(generic.ListView):
     template_name = 'projects/project_list.html'
